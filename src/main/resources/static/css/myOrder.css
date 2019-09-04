@@ -1,0 +1,122 @@
+#window{width: 100%;height: 2250px;background-color: #e3e4e5}
+.container{width: 100%;height: 1700px;background-color: #f5f5f5}
+#shortcut{width: 100%;height: 31px;}
+#shortcut ul{width: 100%;height: 30px;margin-left:50px;font-size: 12px;}
+#shortcut ul li{float: left;margin-left: 10px;line-height: 30px;
+                text-align: center;display: block}
+.st1{padding-left: 415px;width: 150px;}
+.st2{width: 100px;}
+.username{width: 70px;float: left}
+.spacer{overflow: hidden;margin: 10px 1px;width: 1px;height: 15px;
+                background-color: #ccc;}
+.plus{width: 38px;height:16px;float: left;background-color: #d7d4cb;margin: 6px;
+      line-height:16px;color: white}
+#header{width: 100%;height: 80px;background-color: #e2331a}
+.logo{width: 265px;height: 100%;float: left;margin-left: 100px}
+.logo a:hover{background-color: white}
+.logoPic{width: 158px;height: 100%;background-image: url("../image/logo1.png");
+    background-repeat: no-repeat;float: left}
+.fore1{width: 80px;height: 22px;font-size: 20px;
+    font-family: "Microsoft YaHei";float: left;color: white;margin-top: 10px;
+    margin-left: 10px}
+.fore2{float: left;margin: 10px 0 0 10px;color: #ffb2b2;
+    border: 1px solid #ffb2b2;height: 18px;
+    line-height: 18px;padding: 0 10px;border-radius: 10px;}
+.navitems{width: 342px;line-height: 36px;padding: 22px 0;
+    margin: 0 0 0 30px;font-size: 14px;float: left}
+.navitems li{float: left;color: white;}
+.comment{width: 88px;height: 36px;position: relative;display: block;text-align: center}
+.account{width: 88px;height: 36px;position: relative;margin-left: 15px;text-align: center;display: block}
+.comment_ul{width: 88px;height: 120px;background-color: white;margin-top: -5px}
+.comment_ul li{color: #999999}
+.comment_ul_li{font-size: 12px;color:black;margin-left: 20px;display: block;margin-top: -5px}
+.search{width:340px;float: right;margin-right:10px;position: relative}
+.aa{width: 128px;height: 32px;margin-top: 19px}
+.search1{width: 50px;height: 36px;background-color: #f7f7f7;
+    float: left;margin-top: 49px;position: absolute;
+    top:-30px;border: 1px solid #c81623;left: 130px}
+.search form{float: left}
+.shopping{width: 141px;height: 32px;margin-top: 20px;float: left;
+    background-color: white;border: 1px solid #eee;margin-left: 65px}
+.shopping .iconfont{font-size: 20px;margin-left: 10px;margin-top: 10px;color: red;}
+.shopping span{margin-left:10px;}
+.shopping-amount{position: relative;top: -10px;left: -3px;right: auto;display: inline-block;padding: 1px 3px;font-size: 12px;
+    line-height: 12px;color: #fff;background-color: #e1251b;border-radius: 7px;min-width: 12px;text-align: center;}
+.rightJ{font-size: 15px}
+#content{float: left;background-color: #e3e4e5}
+#content a:hover{color: #c81623;cursor: pointer;text-decoration-line: underline}
+#menu{width: 110px;height: 1383px;float: left;margin-left: 70px}
+#menu li{width: 100px;height: 28px;line-height: 28px}
+#order01{background-color: #ffffff;width: 1088px;height: 58px;float: left;margin-top: 20px}
+#order02{background-color: white;width: 1088px;height: 1609px;float: left;margin-top: 20px}
+.menu_item_1{color: black;font-weight: bold}
+.menu_item{margin-top: 20px;}
+#order01 h3{padding-left: 20px;padding-top: 17px}
+.mt{height:45px;position: absolute;float: left}
+.mt ul li{float: left;line-height: 20px;text-align: center;padding-left: 20px;
+    margin-top: 20px}
+.mt_1{width: 48px;height: 20px;color: red}
+.mt_5{margin-left: 50px;font-size: 10px;color: black;font-weight: bold;border-left: 1px dotted #ddd;}
+#mt a{display: block}
+#mt a:hover{color: #c81623;cursor: pointer;text-underline: none;}
+.mt_6{margin-left: 40px;border-left: 1px dotted #ddd;
+    padding-top:0px;padding-left: 0px;}
+.extra{width: 274px;height: 25px;float: right;margin-top: 20px;
+      margin-right: 20px}
+.extra_search{width: 170px;height: 21px;float: left}
+.extra_search1{width: 53px;height: 25px;float: left;margin-left:-5px}
+.extra i.iconfont{font-size: 20px;}
+.extra span i.iconfont{text-align:center;display: block;float: right;padding-top: 4px}
+.extra_3{display: block;font-size: 13px;background-color: #f7f7f7;float: left;
+height: 25px;line-height: 25px;text-align: center;padding-left: 5px}
+.mc{width: 97%;margin-top: 15px;margin-left: 15px}
+.order02_01{width: 100%;height: 45px;}
+.order_head{width: 1048px;height: 31px;background-color:#F5F5F5;text-align: center;line-height: 31px}
+.thread_th1{width: 589px;float: left;}
+.thread_th1_1{width: 132px;height: 32px;float: left;}
+.thread_th1_2{width: 48px;height: 32px;margin-left: 245px;float: left}
+.thread_th2{width: 113px;float: left}
+.tbody_tr1_td1{width: 1055px;height: 20px;}
+.tbody_tr2_td1 span{line-height: 20px;font-size: 13px;float: left;margin-top: 4px;}
+.tbody_tr2_td1{background-color: #f5f5f5;height: 31px}
+.tbody_tr2_td1_1{padding-left: 24px;float: left;text-align: center}
+.tbody_tr2_td1_2{margin-left: 30px}
+.tbody_tr2_td1_3{margin-left: 120px;float: left;margin-top: 4px;}
+.tbody_tr3_td1_1{width: 589px;height: 91px;display: block;position: relative;
+    float:left;border: 1px solid #cccccc;border-top: 0px}
+.goodsPic{width: 60px;height: 60px;background-image: url("../image/goods01.jpg");
+    position: absolute;top: 16px;left: 21px}
+.goodsName{width: 233px;height: 32px;position: absolute;top: 16px;left: 100px}
+.sameGoods{width: 80px;height: 20px;position: absolute;left: 100px;top:52px}
+.goodNum{width: 20px;position: absolute;top:15px;left: 430px}
+.tbody_tr3_td2,.tbody_tr3_td3,.tbody_tr3_td4,.tbody_tr3_td5
+{height: 100%;border: 1px solid #cccccc;border-top: 0px;float: left}
+.tbody_tr3_td2{width: 115px;position: relative}
+.tbody_tr3_td3{width: 110px}
+.tbody_tr3_td4{width: 110px}
+.tbody_tr3_td5{width: 115px}
+.tooltip{position: relative;width: 100px;margin-top: 15px;margin-left: 23px;
+    z-index: 2;cursor: pointer;}
+.prompt-02{ position: absolute;z-index: 2;width: 220px;right: 109px;background-color: white;
+    top: -22px;padding: 15px 20px;color: #666;line-height: 22px;opacity: 1;border: 1px solid #cccccc}
+.pc{min-height: 0px}
+.p-arrow{position: absolute}
+.amount{height: 46px;margin-top: 15px;text-align: center}
+.amount a:hover{color: #c81623;cursor: pointer}
+.buy{margin-top: 15px;height: 29px;width: 87px;background-color: #e3e4e5;
+    text-align: center;margin-left: 10px;line-height: 29px}
+.buy:hover{color: red;border: 1px solid red;cursor: pointer;background-color: white}
+.deletelogo{float: right;margin-right: 10px;display: none}
+.deletelogo:hover{cursor: pointer}
+.showGoods{width:100%;height: 90px}
+
+.statul_ul{width: 90px;height: 100px;background-color: white;z-index: 2;position: absolute}
+.statul_ul a:hover{cursor: pointer;color: red;}
+.statul_ul_li1,.statul_ul_li2,.statul_ul_li3,.statul_ul_li4,.statul_ul_li5{display: block;text-align: center;height: 25px;padding-left: 30px;}
+
+input[value]{
+    color: #999999;
+}
+#search{width: 30px;float: left;text-align: center;height: 25px;line-height: 25px;background-color: #e3e4e5}
+#search:hover{cursor: pointer;}
+

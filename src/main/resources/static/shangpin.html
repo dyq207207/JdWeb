@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情页</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" href="css/spmain.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script>
+        $(function () {
+            // var userName=JSON.parse($.cookie("userName"));
+            // var goodsName=JSON.parse($.cookie("goodsName"));
+            var goodsName="魅族 16s 骁龙855全面屏拍照游戏手机 6GB+128GB 凝光白 全网通4G智能手机";
+            var goodsId =12;
+            // var userId=JSON.parse($.cookie("userId"));
+            // if (userName!=null){
+            //     $(".a2").children.text(userName);
+            // };
+            // $.ajax({
+            //     url: "http://localhost:8080/getGoodId",
+            //     type: "post",
+            //     data: { goods_name:goodsName},
+            //     dataType: "json",
+            //     success: function (data) {
+            //         goodsId=data;
+            //     }
+            // });
+            $("#red-b").click(function () {
+                if(userId==null){
+                    window.open("jdlogin.html")
+                }else {
+                    window.open("gwc.html");
+                }
+            })
+
+            tupian();
+            shuatu1();
+            var $model2=$("#allImg").children()
+            var bj=-1;
+            //商品名称
+            $("#storename").text(goodsName);
+            $(".S4").eq(4).text(goodsName);
+
+
+
+            //修改价格
+            $.ajax({
+                url: "http://localhost:8080/getgoods",
+                type: "post",
+                 data: { goods_id:goodsId},
+                dataType: "json",
+                success: function (data) {
+                    $("#price2").text(data[0].price);
+                }
+            });
+            //修改类别
+            $.ajax({
+                url: "http://localhost:8080/getfsort",
+                type: "post",
+                data: { goods_id: goodsId},
+                dataType: "json",
+                success: function (data) {
+                    $(".S4").eq(0).text(data[0].first_sort_name);
+
+                }
+            });
+            $.ajax({
+                url: "http://localhost:8080/getssort",
+                type: "post",
+                data: { goods_id: goodsId},
+                dataType: "json",
+                success: function (data) {
+                    $(".S4").eq(2).text(data[0].two_sort_name);
+
+                }
+            });
+            //添加商品function
+             $("#red-b").click(function () {
+                 if(userId!=null) {
+                     if (bj < 0) {
+                         $.ajax({
+                             url: "http://localhost:8080/writecart",
+                             type: "post",
+                             data: {
+                                 userId: userId,
+                                 goodsId: goodsId,
+                                 goodsPrice: $("#price2").text(),
+                                 goodsNum: $("#tet1").val()
+                             },
+                             dateType: "josn",
+                             success: function () {
+                                 alert("提交成功");
+                                 bj = 1;
+                             }
+                         })
+                     } else {
+                         $.ajax({
+                             url: "http://localhost:8080/updatecart",
+                             type: "post",
+                             data: {
+                                 userId: userId,
+                                 goodsId: goodsId,
+                                 goodsNum: $("#tet1").val()
+                             },
+                             dateType: "josn",
+                             success: function () {
+                                 alert("修改成功");
+                             }
+                         })
+                     }
+                 }else{
+                     window.open("jdlogin.html");
+                 }
+
+             })
+            //添加按钮
+            $("#button1").click(function () {
+                $("#tet1").val(parseInt($("#tet1").val())+1)
+            })
+            //减少按钮
+            $("#button2").click(function () {
+                var o=parseInt($("#tet1").val());
+                if(o>1) {
+                    $("#tet1").val(o-1)
+                }
+                else{
+                }
+            })
+            //fangdj
+            $("#allImg img").click(function() {
+                $("#allImg img").removeClass("current");
+                $(this).addClass("current");
+                var src = $(this).attr("src");
+                $("#largePic").attr("src", src.replace("_x", "_w"));
+                $("#detailPic img").attr("src", src.replace("_x", "_b"));
+
+            });
+            //放大镜效果
+            $("#largePicDiv").mouseenter(function() {
+                    $(".big_pic").css('display','block');
+                });
+            $("#largePicDiv").mouseleave(function() {
+                    $(".big_pic").css('display','none');
+                });
+            $("#largePicDiv").mousemove(function(e) {
+                    var ev = e || event;
+                    var mouseX = ev.pageX;
+                    var mouseY = ev.pageY;
+                    var picLeft = $("#largePic").offset().left;
+                    var picTop = $("#largePic").offset().top;
+                    var picWidth = $("#largePic").width();
+                    var picHeight = $("#largePic").height();
+                    var xLength = mouseX - picLeft;
+                    var yLength = mouseY - picTop;
+                    var qWidth = picWidth / 4;
+                    var lastQWidth = picWidth - picWidth / 4;
+                    var qHeight = picHeight / 4;
+                    var lastQHeight = picHeight - picHeight / 4;
+                    if (xLength < qWidth) {
+                        $("#move").css("left","0px");
+                    } else {
+                        if (xLength > lastQWidth) {
+                            $("#move").css("left", (lastQWidth - qWidth) + "px");
+                        } else {
+                            $("#move").css("left", (xLength - qWidth) + "px");
+                        }
+                    }
+                    if (yLength < qHeight) {
+                        $("#move").css("top", "0px");
+                    } else {
+                        if (yLength > lastQHeight) {
+                            $("#move").css("top", (lastQHeight - qHeight) + "px");
+                        } else {
+                            $("#move").css("top", (yLength - qHeight) + "px");
+                        }
+                    }
+                    $("#detailPic > img").css("left", parseInt($("#move").css("left")) * (-800 / picWidth) + "px").css("top", parseInt($("#move").css("top")) * (-800 / picWidth) + "px").css("position", "absolute");
+                });
+            //图片下一页
+            $("#bottwn-r").click(function () {
+                tupian1()
+                var $model2=$("#allImg").children().detach()
+                    shuatu()
+            });
+            //图片上一页
+            $("#bottwn-l").click(function () {
+                tupian()
+                var $model2=$("#allImg").children().detach()
+                shuatu1()
+            });
+            //获取前五张
+            function shuatu1() {
+                $.ajax({
+                    url: "http://localhost:8080/getimages",
+                    type: "post",
+                    data: {"goodsId": goodsId
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        for(var i=0;i<5;i++){
+                            var $node2=$model2.clone(true);
+                            var u=data[i].imgUrl;
+                            $node2.attr("src",u);
+                            $("#allImg").append($node2);}
+
+                    }
+                });
+            }
+            //获取后五张
+            function shuatu() {
+                $.ajax({
+                    url: "http://localhost:8080/getimages",
+                    type: "post",
+                    data: {"goodsId": goodsId
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        for(var i=data.length-5;i<data.length;i++){
+                            var $node2=$model2.clone(true);
+                            var u=data[i].imgUrl;
+                            $node2.attr("src",u);
+                            $("#allImg").append($node2);}
+
+                    }
+                });
+            }
+            //大图
+            function tupian() {
+                $.ajax({
+                    url: "http://localhost:8080/getimages",
+                    type: "post",
+                    data: {"goodsId": goodsId},
+                    dataType: "json",
+                    success: function (data) {
+                        var p = data[0].imgUrl;
+                        $("#largePic").attr("src", p);
+                    }
+                });
+            }
+            //大图第二次刷新
+            function tupian1() {
+                $.ajax({
+                    url: "http://localhost:8080/getimages",
+                    type: "post",
+                    data: {"goodsId": goodsId},
+                    dataType: "json",
+                    success: function (data) {
+                        var i=data.length-5
+                        var p = data[i].imgUrl;
+                        $("#largePic").attr("src",p);
+                    }
+                });
+            }
+            var $model2=$("#allImg").children().detach()
+        })
+    </script>
+</head>
+<body>
+<div id="shortcut" >
+    <div  id ="shortcut2" >
+        <dl class="a1"><a  href="jingdong.html">手机京东</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a  href="jingdong.html">网站导航</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a  href="jingdong.html">客户服务</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a class="c" href="jingdong.html">企业采购</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a  href="jingdong.html">京东会员</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a  href="jingdong.html">我的京东</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a  href="jingdong.html">我的订单</a></dl>
+        <li class="a3">/</li>
+        <dl class="a1"><a class="c" href="jingdong.html">免费注册</a></dl>
+        <li class="a3">/</li>
+        <dl class="a2"><a  href="jingdong.html">您好，请登录</a></dl>
+        <li class="a3">/</li>
+    </div>
+    <div id="shortcut1">
+        <div class="iconfont iconfont-location" id="zi"></div>
+        <span id="fujian">福建</span>
+    </div>
+
+</div>
+<div id="header" >
+    <div id="logo"></div>
+
+    <div id="h1" >
+        <input type="text"id="tet">
+        <button id="h3">搜索</button>
+        <!-- <img src="images/kuo.png" height="30">-->
+    </div>
+    <div id="h2" >
+        <a id="gou" target="s_blank">我的购物车</a>
+        <i id="s_iconfont1"></i>
+        <i class="s_ci-count" id="s_shopping-amount1">0</i>
+        <!-- <img src="images/kuo.png" height="30">-->
+    </div>
+    <div id="xiabiao">
+        <ul>
+            <li class="d1">0元试用</li>
+            <li class="d1">红魔</li>
+            <li class="d1" >百元空调</li>
+            <li class="d1">凉鞋清仓</li>
+            <li class="d1">卫浴一元</li>
+            <li class="d1">满90减50</li>
+            <li class="d1">0元试用</li>
+            <li class="d1">红魔</li>
+            <li class="d1">百元空调</li>
+        </ul>
+    </div>
+
+
+</div>
+<div id="shop">
+    <div ><h1 id="shopname">JINGDONG 产品京东自营店</h1></div>
+</div>
+   <div  id ="shopcut1" >
+      <div id="s1l">
+         <dl ><a class="S1" href="jingdong.html">手机京东</a></dl>
+         <dl ><a class="S1" href="jingdong.html">网站导航</a></dl>
+         <dl ><a class="S1" href="jingdong.html">客户服务</a></dl>
+         <dl ><a class="S1" href="jingdong.html">企业采购</a></dl>
+         <dl ><a class="S1" href="jingdong.html">京东会员</a></dl>
+         <dl ><a class="S1" href="jingdong.html">我的京东</a></dl>
+         <dl ><a class="S1" href="jingdong.html">我的订单</a></dl>
+         <dl ><a class="S1" href="jingdong.html">免费注册</a></dl>
+      </div>
+       <div id="s1r">
+
+    </div>
+</div>
+
+   <div  id ="shopcut2" >
+    <div id="s2l">
+        <dl ><a class="S4" href="jingdong.html">手机京东</a></dl>
+        <dl ><a class="S4" href="jingdong.html">></a></dl>
+        <dl ><a class="S4" href="jingdong.html">客户服务</a></dl>
+        <dl ><a class="S4" href="jingdong.html">></a></dl>
+        <dl ><a class="S4" href="jingdong.html">京东会员</a></dl>
+    </div>
+    <div id="s2r">
+
+    </div>
+</div>
+<div id="store">
+    <div class="infoimg">
+        <div class="mainImg" id="largePicDiv">
+            <img id="largePic" src="image/VIVO1.jpg" alt="和朋友们一起想办法（第二辑）：全8册" />
+            <div class="zoom_pup" id="move"></div>
+            <div id="detailPic" class="big_pic">
+                <img alt="和朋友们一起想办法（第二辑）：全8册" src="image/VIVO1.jpg" />
+            </div>
+        </div>
+        <div id="bottwn-l"></div>
+        <div id="allImg">
+            <img src="image/VIVO1.jpg" alt="和朋友们一起想办法（第二辑）：全8册"/>
+
+        </div>
+        <div id="bottwn-r"></div>
+    </div>
+
+    <div id="store-m">
+        <div id="storename">
+            <img src="image/xinpin.png" height="16" width="30"/>
+            可爱有点小性感可盐可甜会撒娇会打篮球会打电话叫温柔起床吃鸡贼厉害的万人迷正哥</div>
+        <div id="storeprice">
+            <div class="price1">京  东  价</div>
+            <div id="price2">￥ 520</div>
+            <div id="price3">降价通知</div>
+            <div id="price5">
+                <div id="pr-r1">累计评价</div>
+                <div id="pr-r2">10000+</div>
+            </div>
+            <div id="price4">|</div>
+        </div>
+        <div id="fahourl">
+            <div class="price1">配  送  地</div>
+            <div>
+                <div id="urltext" title="福建厦门市集美区灌口镇">福建厦门市集美区灌口镇</div>
+                <div id="xiaotubiao1"></div>
+                <div id="youhuo">有货</div>
+                <div id="mianyunfei">免运费</div>
+                <div></div>
+            </div>
+        </div>
+        <div id="storeshop">
+            <div class="sr-r1">由 </div>
+            <div id="sr-r2"> 京东 </div>
+            <div class="sr-r1"> 从 福建厦门
+                发货，并提供售后服务.</div>
+        </div>
+        <div id="geduan3"></div>
+        <div id="server">
+            <img src="image/jiade.jpg" height="228" width="633"/>
+            <div id="kuang">
+                <input type="text"id="tet1"value="1">
+                <div id="tet2">
+                    <button class="red-b" id="button1">+</button>
+                    <button class="red-b" id="button2">-</button>
+                </div>
+            </div>
+            <button id="red-b">加入购物车</button>
+        </div>
+
+    </div>
+    <div id="store-r">
+        <div id="shead"><div id="geduan1"></div>商品推荐<div id="geduan2"></div></div>
+        <div class="hezi">
+            <img src="image/tuijian1.jpg" height="150" width="150"/>
+            <h3 class="hezi1">OR 短袖t恤男2019夏季男装短袖T恤夏天圆领刺绣五分袖男士休闲半袖男 黑色 L</h3>
+            <div class="price">￥520</div>
+        </div>
+        <div class="hezi">
+            <img src="image/tuijian2.jpg" height="150" width="150"/>
+            <h3 class="hezi1">OR 五分袖男2019夏季男装短袖T恤男士新款绣花加肥加大码宽松t恤男薄款体恤潮流半袖男 米色 5XL</h3>
+            <div class="price">￥520</div>
+        </div>
+        <div class="hezi">
+            <img src="image/tuijian3.jpg" height="150" width="150"/>
+            <h3 class="hezi1"><div>OR 【买一送一 148两件】男装短袖2019夏季男装印花t恤男宽松潮流半袖夏装男生衣服男短袖T恤 1930黑色+1931灰色 XL </div></h3>
+            <div class="price">￥52</div>
+        </div>
+    </div>
+
+</div>
+<div id="miao">
+    <div id="geduan"></div>
+    <div id="ms1">
+        <div id="htop">
+            <span id="dazi">京东秒杀</span>
+        </div>
+        <div id="hdow">
+            <h2 id="dazi1"class="paixu">22:00</h2>
+            <h3 id="dazi2" class="paixu">点场 倒计时</h3>
+        </div>
+
+
+    </div>
+    <div class="ms2">
+        <img  id="ms2"class="ms3" src="image/fc00553b37928034.jpg.webp" height="130" width="130"/>
+        <h3 class="hzi">富士（FUJIFILM）X-T30/XT30 XF18-55 微单/照相机 2610万像素 4K视频 蓝牙WIFI 银色</h3>
+        <div class="hh">
+            <span class="q1"><i>￥</i><span >8688</span></span><span class="q2"><i>￥</i><span>9999</span></span>
+        </div>
+    </div>
+    <div class="ms2">
+        <img class="ms3" src="image/f37a6a83b147289c.jpg.webp" height="130" width="130"/>
+        <h3 class="hzi">富士（FUJIFILM）X-T30/XT30 XF18-55 微单/照相机 2610万像素 4K视频 蓝牙WIFI 银色</h3>
+        <div class="hh">
+            <span class="q1"><i>￥</i><span >8688</span></span><span class="q2"><i>￥</i><span>9999</span></span>
+        </div>
+    </div>
+    <div class="ms2">
+        <img class="ms3" src="image/cca7eb5392a5fce0.jpg.webp" height="130" width="130"/>
+        <h3 class="hzi">富士（FUJIFILM）X-T30/XT30 XF18-55 微单/照相机 2610万像素 4K视频 蓝牙WIFI 银色</h3>
+        <div class="hh">
+            <span class="q1"><i>￥</i><span >8688</span></span><span class="q2"><i>￥</i><span>9999</span></span>
+        </div>
+    </div>
+    <div class="ms2">
+        <img class="ms3" src="image/8304f55b98f551d5.jpg.webp" height="130" width="130"/>
+        <h3 class="hzi">富士（FUJIFILM）X-T30/XT30 XF18-55 微单/照相机 2610万像素 4K视频 蓝牙WIFI 银色</h3>
+        <div class="hh">
+            <span class="q1"><i>￥</i><span >8688</span></span><span class="q2"><i>￥</i><span>9999</span></span>
+        </div>
+    </div>
+    <div class="ms2">
+        <img class="ms3" src="image/375aa6b727ab9424.jpg.webp" height="130" width="130"/>
+        <h3 class="hzi">富士（FUJIFILM）X-T30/XT30 XF18-55 微单/照相机 2610万像素 4K视频 蓝牙WIFI 银色</h3>
+        <div class="hh">
+            <span class="q1"><i>￥</i><span >8688</span></span><span class="q2"><i>￥</i><span>9999</span></span>
+        </div>
+    </div>
+</div>
+<div id="footer">
+<iframe id="footerFrame" name="footerFrame" src="cwfooter.html" width="990" height="400" frameborder="0" scrolling="no"></iframe>
+</div>
+</body>
+</html>

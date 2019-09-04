@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.jd.mapper.SecondSortMapper">
+  <resultMap id="BaseResultMap" type="org.lanqiao.jd.entity.SecondSort">
+    <id column="two_sort_id" jdbcType="INTEGER" property="two_sort_id" />
+    <result column="two_sort_name" jdbcType="VARCHAR" property="two_sort_name" />
+    <result column="first_sort_id" jdbcType="INTEGER" property="first_sort_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    two_sort_id, two_sort_name, first_sort_id
+  </sql>
+  <select id="getSsSort" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    secondsort.two_sort_name
+    from goods , secondsort
+    where goods.goods_id= #{param1,jdbcType=INTEGER} and goods.sort_id=secondsort.two_sort_id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from secondsort
+    where two_sort_id = #{two_sort_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.jd.entity.SecondSort">
+    insert into secondsort (two_sort_id, two_sort_name, first_sort_id
+      )
+    values (#{two_sort_id,jdbcType=INTEGER}, #{two_sort_name,jdbcType=VARCHAR}, #{first_sort_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.jd.entity.SecondSort">
+    insert into secondsort
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="two_sort_id != null">
+        two_sort_id,
+      </if>
+      <if test="two_sort_name != null">
+        two_sort_name,
+      </if>
+      <if test="first_sort_id != null">
+        first_sort_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="two_sort_id != null">
+        #{two_sort_id,jdbcType=INTEGER},
+      </if>
+      <if test="two_sort_name != null">
+        #{two_sort_name,jdbcType=VARCHAR},
+      </if>
+      <if test="first_sort_id != null">
+        #{first_sort_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.jd.entity.SecondSort">
+    update secondsort
+    <set>
+      <if test="two_sort_name != null">
+        two_sort_name = #{two_sort_name,jdbcType=VARCHAR},
+      </if>
+      <if test="first_sort_id != null">
+        first_sort_id = #{first_sort_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where two_sort_id = #{two_sort_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.jd.entity.SecondSort">
+    update secondsort
+    set two_sort_name = #{two_sort_name,jdbcType=VARCHAR},
+      first_sort_id = #{first_sort_id,jdbcType=INTEGER}
+    where two_sort_id = #{two_sort_id,jdbcType=INTEGER}
+  </update>
+</mapper>

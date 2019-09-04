@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.jd.mapper.ClassfyMapper" >
+  <resultMap id="ClassfyResultMap" type="org.lanqiao.jd.entity.Classfy" >
+  <id column="classfy_id" property="classfyId" jdbcType="INTEGER" />
+  <result column="parent_classfy_id" property="parentClassfyId" jdbcType="INTEGER" />
+  <result column="classfy_name" property="classfyName" jdbcType="VARCHAR" />
+    <collection property="rank" resultMap="RankResultMap"></collection>
+</resultMap>
+  <resultMap id="RankResultMap" type="org.lanqiao.jd.entity.Rank" >
+    <id column="rank_id" property="rankId" jdbcType="INTEGER" />
+    <result column="rank_name" property="rankName" jdbcType="VARCHAR" />
+    <result column="classfy_id" property="classfyId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    classfy_id, parent_classfy_id, classfy_name
+  </sql>
+<select id="getName" resultType="java.lang.String">
+  select classfy_name from classfy;
+</select>
+  <select id="selelctRank" resultMap="RankResultMap">
+    select rank_name from rank r,classfy cf
+    where r.classfy_id = cf.classfy_id and cf.classfy_name = #{name}
+  </select>
+</mapper>

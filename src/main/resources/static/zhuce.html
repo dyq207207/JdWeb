@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/zhuce.css">
+    <link rel="stylesheet" type="text/css" href="css/zhucepublic.css">
+
+    <script>
+        $(function () {
+            var flag = -1;
+
+            $("#form-getcode").click(function () {
+                $.ajax({
+                    url: "http://localhost:8080/checkTel",
+                    type: "post",
+                    data: {
+                        'telephone': $("input[name='telphone']").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == true) {
+                            sessionStorage.setItem('telephone', $("input[name='telphone']").val());
+                            $('.form-validate').eq(0).html('<i class="i-def error" style="background-position: 0px -117px;">' +
+                                '</i><span style="color: #c5c5c5">该手机号可以使用</span>');
+                            $('.form-list').eq(0).find('.i-status').css('display', 'none');
+                            $('.form-validate').eq(1).html("");
+                            return flag = 1;
+
+                        } else if (data == false) {
+                            $('.form-validate').eq(0).html('<i class="i-def error"></i><span class="feifa">该手机号已被注册</span>');
+                            $('.form-list').eq(0).find('.i-status').css('display', 'none');
+                            $('.form-validate').eq(1).html("");
+                            return flag = 0;
+                        }
+
+                    }
+
+
+                })
+
+            });
+
+            $(".form-next").click(function () {
+
+                if (flag == 1) {
+                    window.location.href = "zhuce2.html";
+                } else if (flag == 0) {
+                    $('.form-validate').eq(0).html('<i class="i-def error"></i><span class="feifa">该手机号已被注册</span>');
+                    $('.form-list').eq(0).find('.i-status').css('display', 'none');
+                    $('.form-validate').eq(1).html("");
+                    flag = -1;
+                } else {
+                    if ($("input[name='telphone']").val() == "") {
+                        $('.form-validate').eq(0).html('<i class="i-def error"></i><span class="feifa">请先输入手机号</span>');
+                        $('.form-list').eq(0).find('.i-status').css('display', 'none');
+                        $('.form-validate').eq(1).html("");
+                    } else {
+                        $('.form-validate').eq(1).html('<i class="i-def error"></i><span class="feifa">请先验证手机号</span>');
+                        $('.form-list').eq(1).find('.i-status').css('display', 'none');
+                    }
+
+                }
+
+            })
+
+        })
+    </script>
+</head>
+<body>
+<!--注册头部-->
+<div class="zc-head">
+    <!--    注册logo栏-->
+    <div class="logo-con">
+        <a href="" class="logo ">
+            <img src="image/zhucelogo.png" style="height: 100%;width: 100%">
+        </a>
+        <div class="logo-title">欢迎注册</div>
+        <div class="have-account">已有账号?<a href="">请登录&gt;</a>
+        </div>
+    </div>
+</div>
+<!--注册主体-->
+<div id="zc-body">
+    <!--    注册步骤导航-->
+    <div id="zc-body-navigation">
+        <!--        验证手机号-->
+        <div class="navigation-step">
+            <span class="step-index" style="background-color: #33bb44">1</span>
+            <p class="step-desc" style="color: #33bb44;">验证手机号</p>
+        </div>
+        <div class="pro-line"><img src="image/step-index.png" style="width: 100%;height: 100%"></div>
+        <div class="navigation-step" style="margin-left: 106px;width: 72px">
+            <span class="step-index">2</span>
+            <p class="step-desc">填写账号信息</p>
+        </div>
+        <div class="pro-line" style="left: 228px;"><img src="image/step-index.png" style="width: 100%;height: 100%"></div>
+        <div class="navigation-step" style="margin-left: 108px">
+            <span class="step-index">3</span>
+            <p class="step-desc">注册成功</p>
+        </div>
+    </div>
+
+
+    <!--    输入手机号-->
+    <div id="input-wrp">
+        <!--        手机号栏-->
+        <form method="post">
+            <div class="form-list">
+                <label for="telphone" id="country">中国 0086 <a href=""></a></label>
+                <input type="text" id="telphone" name="telphone" placeholder="建议使用常用手机">
+            </div>
+            <div class="form-validate"></div>
+
+            <div id="form-getcode" onclick="">点击按钮进行验证</div>
+            <div class="form-validate"></div>
+
+            <!--        下一步-->
+            <div class="form-next" onclick="">下一步</div>
+            <!--        其他用户注册-->
+            <div id="reg-other">
+                <a href="" class="form-otherperson"><i class="reg-ohter-icon">
+                    <img src="image/reg.png" style="height: 100%;width: 100%">
+                </i>企业用户注册</a>
+                <a href="" class="form-otherperson1"><i class="reg-ohter-icon">
+                    <img src="image/leg.png" style="height: 100%;width: 100%">
+                </i>海外用户注册</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+<!--注册底部-->
+<div id="zc-bottom">
+    <div id="form-footer" class="footer w">
+        <div class="links">
+            <a href="//www.jd.com/intro/about.aspx"> 关于我们</a>|
+            <a href="//www.jd.com/contact/">联系我们</a>|
+            <a href="//zhaopin.jd.com/">人才招聘</a>|
+            <a href="//www.jd.com/contact/joinin.aspx">商家入驻</a>|
+            <a href="//www.jd.com/intro/service.aspx">广告服务</a>|
+            <a href="//app.jd.com/">手机京东</a>|
+            <a href="//club.jd.com/links.aspx">友情链接</a>|
+            <a href="//media.jd.com">销售联盟</a>|
+            <a href="//club.jd.com/">京东社区</a>|
+            <a href="//gongyi.jd.com">京东公益</a>|
+            <a href="//en.jd.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+        </div>
+        <div class="copyright">
+            Copyright&copy;2004-2019&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="js/zhuce.js"></script>
+</html>

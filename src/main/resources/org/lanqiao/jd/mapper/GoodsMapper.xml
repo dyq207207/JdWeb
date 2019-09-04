@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.jd.mapper.GoodsMapper" >
+  <resultMap id="GoodsResultMap" type="org.lanqiao.jd.entity.Goods" >
+    <id column="goods_id" property="goods_id" jdbcType="INTEGER" />
+    <result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+    <result column="sort_id" property="sort_id" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="goods_num" property="goods_num" jdbcType="INTEGER" />
+    <result column="brands_id" property="brands_id" jdbcType="INTEGER" />
+    <result column="goods_sales" property="goods_sales" jdbcType="INTEGER" />
+    <result column="goods_create_time" property="goods_create_time" jdbcType="TIMESTAMP" />
+      <association property="classfy" resultMap="ClassfyResultMap"></association>
+      <association property="brand" resultMap="BrandResultMap"></association>
+      <collection property="imageSet" resultMap="ImageResultMap"></collection>
+  </resultMap>
+    <resultMap id="ClassfyResultMap" type="org.lanqiao.jd.entity.Classfy" >
+        <id column="classfy_id" property="classfyId" jdbcType="INTEGER" />
+        <result column="parent_classfy_id" property="parentClassfyId" jdbcType="INTEGER" />
+        <result column="classfy_name" property="classfyName" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BrandResultMap" type="org.lanqiao.jd.entity.Brand" >
+        <id column="brand_id" property="brandId" jdbcType="INTEGER" />
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+        <result column="brand_img_url" property="brandImgUrl" jdbcType="VARCHAR" />
+    </resultMap>
+  <resultMap id="ImageResultMap" type="org.lanqiao.jd.entity.Image" >
+      <id column="img_id" property="imgId" jdbcType="INTEGER" />
+      <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+      <result column="img_desc" property="imgDesc" jdbcType="VARCHAR" />
+      <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, goods_name, sort_id, price, goods_num, brands_id, goods_sales, goods_create_time
+  </sql>
+  <select id="selectgoods_id" resultMap="GoodsResultMap" parameterType="java.lang.String">
+    select goods_id
+    from goods
+    where goods_name=#{goods_name,jdbcType=VARCHAR}
+  </select>
+  <select id="getAllgoods" parameterType="java.lang.Integer" resultMap="GoodsResultMap">
+    select
+    goods_name,price,goods_num
+    from goods
+    where goods_id = #{param1,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="GoodsResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where goods_id = #{goods_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where goods_id = #{goods_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.jd.entity.Goods" >
+    insert into goods (goods_id, goods_name, sort_id, 
+      price, goods_num, brands_id, 
+      goods_sales, goods_create_time)
+    values (#{goods_id,jdbcType=INTEGER}, #{goods_name,jdbcType=VARCHAR}, #{sort_id,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{goods_num,jdbcType=INTEGER}, #{brands_id,jdbcType=INTEGER}, 
+      #{goods_sales,jdbcType=INTEGER}, #{goods_create_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.jd.entity.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goods_id != null" >
+        goods_id,
+      </if>
+      <if test="goods_name != null" >
+        goods_name,
+      </if>
+      <if test="sort_id != null" >
+        sort_id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="goods_num != null" >
+        goods_num,
+      </if>
+      <if test="brands_id != null" >
+        brands_id,
+      </if>
+      <if test="goods_sales != null" >
+        goods_sales,
+      </if>
+      <if test="goods_create_time != null" >
+        goods_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goods_id != null" >
+        #{goods_id,jdbcType=INTEGER},
+      </if>
+      <if test="goods_name != null" >
+        #{goods_name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort_id != null" >
+        #{sort_id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="goods_num != null" >
+        #{goods_num,jdbcType=INTEGER},
+      </if>
+      <if test="brands_id != null" >
+        #{brands_id,jdbcType=INTEGER},
+      </if>
+      <if test="goods_sales != null" >
+        #{goods_sales,jdbcType=INTEGER},
+      </if>
+      <if test="goods_create_time != null" >
+        #{goods_create_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.jd.entity.Goods" >
+    update goods
+    <set >
+      <if test="goods_name != null" >
+        goods_name = #{goods_name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort_id != null" >
+        sort_id = #{sort_id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="goods_num != null" >
+        goods_num = #{goods_num,jdbcType=INTEGER},
+      </if>
+      <if test="brands_id != null" >
+        brands_id = #{brands_id,jdbcType=INTEGER},
+      </if>
+      <if test="goods_sales != null" >
+        goods_sales = #{goods_sales,jdbcType=INTEGER},
+      </if>
+      <if test="goods_create_time != null" >
+        goods_create_time = #{goods_create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goods_id = #{goods_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.jd.entity.Goods" >
+    update goods
+    set goods_name = #{goods_name,jdbcType=VARCHAR},
+      sort_id = #{sort_id,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      goods_num = #{goods_num,jdbcType=INTEGER},
+      brands_id = #{brands_id,jdbcType=INTEGER},
+      goods_sales = #{goods_sales,jdbcType=INTEGER},
+      goods_create_time = #{goods_create_time,jdbcType=TIMESTAMP}
+    where goods_id = #{goods_id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="test" resultType="java.lang.Integer">
+    select count(goods_id) as allGoodsNum from goods
+  </select>
+  <select id="getGoodsId" resultType="java.lang.Integer">
+    select goods_id from goods where goods_name = #{goods_name}
+  </select>
+
+  <!--  得到商品的所有名字-->
+  <select id="getAllGoodsName" resultType="java.lang.String">
+    select goods_name from goods
+  </select>
+  <!--  模糊查询-->
+  <select id="fuzzySearch" resultMap="GoodsResultMap">
+    select  g.*,img_url
+    from goods g left join img on (g.goods_id = img.goods_id),classfy c
+    WHERE g.sort_id = c.classfy_id and classfy_name = #{name} group by g.goods_id limit 8
+  </select>
+  <!--  排序-->
+  <select id="orderBy" resultMap="GoodsResultMap">
+    select g.*,img_url
+    from goods g left join img on (g.goods_id = img.goods_id),classfy c
+    WHERE g.sort_id = c.classfy_id  and classfy_name = #{name} group by g.goods_id
+    <if test="orderByState == 1">
+      order by goods_sales
+    </if>
+    <if test="orderByState == 2">
+      order by goods_sales desc
+    </if>
+    <if test="orderByState == 3">
+      order by goods_create_time
+    </if>
+    <if test="orderByState == 4">
+      order by goods_create_time desc
+    </if>
+    <if test="orderByState == 5">
+      order by price
+    </if>
+    <if test="orderByState == 6">
+      order by price desc
+    </if>
+    limit 8;
+  </select>
+  <select id="priceInterval" resultMap="GoodsResultMap">
+    select * from goods g,classfy c,img
+    WHERE g.sort_id = c.classfy_id and g.goods_id = img.goods_id and classfy_name = #{name}
+    <if test="lowPrice == null and highPrice != null">
+      and price <![CDATA[ >= ]]> 0 and price <![CDATA[ <= ]]> #{highPrice}
+    </if>
+    <if test="highPrice == null and lowPrice != null">
+      and price <![CDATA[ >= ]]> #{lowPrice}
+    </if>
+    <if test="highPrice != null and lowPrice != null">
+      and price <![CDATA[ <= ]]> #{highPrice} and price <![CDATA[ >= ]]> #{lowPrice}
+    </if>
+    limit 8;
+  </select>
+  <select id="brandSearch" resultMap="GoodsResultMap">
+    select g.*,img_url
+    from goods g left join img on (g.goods_id = img.goods_id),classfy c,brand b
+    WHERE g.sort_id = c.classfy_id and g.brands_id = b.brand_id
+    <if test="name != null">
+      and classfy_name = #{name}
+    </if>
+    <if test="brandName">
+      and brand_img_url = #{brandName}
+    </if>
+    limit 8;
+  </select>
+  <select id="insertBrand" resultMap="GoodsResultMap">
+    select distinct brand_img_url
+    from goods g,classfy c,brand b
+    WHERE g.sort_id = c.classfy_id and g.brands_id = b.brand_id and classfy_name = #{name}
+  </select>
+
+
+
+</mapper>

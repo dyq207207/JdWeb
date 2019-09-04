@@ -9,8 +9,9 @@
     </settings>
 	<!--别名-->
 	<typeAliases>
+		<package name="org.lanqiao.jd.mapper" ></package>
+		<package name="org.lanqiao.jd.entity" ></package>
 		<package name="java.lang"></package>
-		<package name="org.lanqiao.jdlogin.demo.entity"></package>
 	</typeAliases>
 	<!-- development : 开发模式 work : 工作模式 -->
 	<environments default="development">
@@ -28,6 +29,6 @@
 	</environments>
 	<!-- 映射文件 -->
 	<mappers>
-		<mapper resource="org/lanqiao/jdlogin/demo/mapper/UserMapper.xml" />
+		<mapper resource="org/lanqiao/jd/mapper/UserMapper.xml" />
 	</mappers>
 </configuration>

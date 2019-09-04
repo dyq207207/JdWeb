@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.jd.mapper.CartMapper" >
+  <resultMap id="CartResultMap" type="org.lanqiao.jd.entity.Cart" >
+    <result column="goods_id" property="goodsId" javaType="INTEGER"/>
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="goods_price" property="goodsPrice" javaType="DOUBLE"/>
+    <collection property="goodsSet" ofType="org.lanqiao.jd.entity.Goods">
+      <result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+      <collection property="imageSet" ofType="org.lanqiao.jd.entity.Image">
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+      </collection>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cart_id, user_id, goods_id, goods_price, goods_num, add_time
+  </sql>
+  <select id="selectCartGoods" resultMap="CartResultMap" parameterType="java.lang.Integer" >
+    select cart.goods_id,goods_name,cart.goods_num,goods_price,img_url from cart,goods g,img i where cart.goods_id = g.goods_id and i.goods_id = g.goods_id and user_id = #{userId,jdbcType=INTEGER} and i.img_desc = "gwc" order by add_time desc
+
+  </select>
+  <delete id="deleteCartGoods" parameterType="java.lang.Integer" >
+    delete from cart
+    where user_id = #{userId} and goods_id = #{goodsId}
+  </delete>
+
+
+  <insert id="insert" parameterType="org.lanqiao.jd.entity.Cart" >
+    insert into cart ( user_id, goods_id,
+      goods_price, goods_num, add_time
+      )
+    values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER},
+      #{goodsPrice,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.jd.entity.Cart" >
+    insert into cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        cart_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsNum != null" >
+        goods_num,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cartId != null" >
+        #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.jd.entity.Cart" >
+    update cart
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsNum != null" >
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.jd.entity.Cart" >
+    update cart
+    set user_id = #{userId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=DOUBLE},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where cart_id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="changeGoodsNum" parameterType="org.lanqiao.jd.entity.Cart" >
+    update cart
+    set goods_num = #{goodsNum}
+    where user_id = #{userId} and goods_id = #{goodsId}
+  </update>
+  <update id="update" parameterType="org.lanqiao.jd.entity.Cart" >
+    update cart
+    set
+      goods_num =goods_num+ #{goods_num,jdbcType=INTEGER}
+    where user_id = #{user_id,jdbcType=INTEGER} and
+      goods_id = #{goods_id,jdbcType=INTEGER}
+  </update>
+</mapper>

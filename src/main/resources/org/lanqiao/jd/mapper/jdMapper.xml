@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.jd.mapper.JDMapper" >
+    <resultMap id="OrderResultMap" type="org.lanqiao.jd.entity.Order" >
+        <id column="order_id" property="order_id" jdbcType="INTEGER" />
+        <result column="address_id" property="address_id" jdbcType="INTEGER" />
+        <result column="pay_method" property="pay_method" jdbcType="VARCHAR" />
+        <result column="order_money" property="order_money" jdbcType="DOUBLE" />
+        <result column="creat_time" property="creat_time" jdbcType="TIMESTAMP" />
+        <result column="order_status" property="order_status" jdbcType="VARCHAR" />
+        <result column="user_id" property="user_id" jdbcType="INTEGER" />
+        <result column="provice" property="provice" jdbcType="INTEGER" />
+        <result column="city" property="city" jdbcType="INTEGER" />
+        <result column="district" property="district" jdbcType="INTEGER" />
+        <association property="address" javaType="address">
+            <id column="address_id" property="address_id" jdbcType="INTEGER" />
+            <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+            <result column="receive_name" property="receive_name" jdbcType="VARCHAR" />
+            <result column="street" property="street" jdbcType="VARCHAR" />
+            <result column="provice_id" property="provice_id" jdbcType="INTEGER" />
+        </association>
+        <association property="user" javaType="user">
+            <id column="user_id" property="user_id" jdbcType="INTEGER" />
+        </association>
+        <collection property="orderitemSet" ofType="orderitem">
+            <id column="orderitem_id" property="orderitem_id" jdbcType="INTEGER" />
+            <result column="order_id" property="order_id" jdbcType="INTEGER" />
+            <result column="goods_id" property="goods_id" jdbcType="INTEGER" />
+            <result column="goods_num" property="goods_num" jdbcType="INTEGER" />
+            <result column="goods_price" property="goods_price" jdbcType="DOUBLE" />
+            <result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+            <result column="img_url" property="img_url" jdbcType="VARCHAR" />
+        </collection>
+        <collection property="goodsSet" ofType="goods">
+            <id column="goods_id" property="goods_id" jdbcType="INTEGER" />
+            <result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+
+
+    <select id="getAllOrder1" resultMap="OrderResultMap" parameterType="Map">
+        SELECT o.creat_time,o.order_id,o.order_money,o.order_status,g.goods_name,oi.goods_num,
+        a.receive_name,a.telephone,a.street,oi.img_url,o.provice,o.city,o.district
+        from `order`o,orderitem oi,goods g,`user` u,address a
+        where o.order_id=oi.order_id and oi.goods_id=g.goods_id and o.user_id=u.user_id
+        and o.address_id=a.address_id and o.order_id in(  select oo.order_id from( SELECT distinct(o.order_id)
+                                                          from `order` o ,orderitem oi
+                                                          <where>
+                                                              <if test="order_status != null and ''!= order_status">
+                                                                 o.order_status=#{order_status}
+                                                              </if>
+                                                              <if test="search_text != null and ''!=search_text">
+                                                                 and (o.order_id = #{search_text} or oi.goods_name like concat('%',#{search_text},'%')) and o.order_id=oi.order_id
+                                                              </if>
+                                                                 and o.user_id=#{user_id}
+                                                          </where>
+                                                          order by o.creat_time desc limit #{startNum},#{pageSize})as oo ) order by o.creat_time DESC
+    </select>
+
+    <delete id="deleteOrderItem" parameterType="java.lang.Integer" >
+    delete from orderitem
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </delete>
+
+    <select id="getOrderCount"  resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(distinct (o.order_id)) from `order` o,orderitem oi
+        <where>
+            <if test="order_status != null and ''!= order_status">
+                o.order_status=#{order_status}
+            </if>
+            <if test="search_text != null and ''!=search_text">
+                and (o.order_id = #{search_text} or oi.goods_name like concat('%',#{search_text},'%')) and o.order_id=oi.order_id
+            </if>
+            and o.user_id=#{user_id}
+        </where>
+    </select>
+
+
+
+</mapper>

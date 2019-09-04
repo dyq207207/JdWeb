@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册2</title>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/zhucepublic.css">
+
+    <!--<script>-->
+
+    <!--          $(function () {-->
+    <!--          $(".filed").click(function () {-->
+    <!--           var check = $(this).val();-->
+    <!--           if (check == this.defaultValue) {-->
+    <!--            $(this).val("");-->
+    <!--             }-->
+    <!--              });-->
+    <!--            // 用户名框鼠标焦点移出，文字显示-->
+    <!--         $("input").blur(function () {-->
+    <!--             if(($(this).val())==""){-->
+    <!--           $(this).val(this.defaultValue);}-->
+    <!--            });-->
+    <!--          });-->
+
+    <script>
+
+    </script>
+
+
+
+    <!--    </script>-->
+</head>
+<body>
+<!--注册头部-->
+<div class="zc-head">
+    <!--    注册logo栏-->
+    <div class="logo-con">
+        <a href="" class="logo ">
+            <img src="image/zhucelogo.png" style="height: 100%;width: 100%">
+        </a>
+        <div class="logo-title">欢迎注册</div>
+        <div class="have-account">已有账号?<a href="">请登录&gt;</a>
+        </div>
+    </div>
+</div>
+<!--注册主体-->
+<div id="zc-body">
+    <!--    注册步骤导航-->
+    <div id="zc-body-navigation">
+        <!--        验证手机号-->
+        <div class="navigation-step">
+            <span class="step-index" style="background-color: #33bb44">1</span>
+            <p class="step-desc" style="color: #33bb44;">验证手机号</p>
+        </div>
+        <div class="pro-line"><img src="image/step-index.png" style="width: 100%;height: 100%"></div>
+        <div class="navigation-step" style="margin-left: 106px;width: 72px">
+            <span class="step-index">2</span>
+            <p class="step-desc">填写账号信息</p>
+        </div>
+        <div class="pro-line" style="left: 228px;"><img src="image/step-index.png" style="width: 100%;height: 100%">
+        </div>
+        <div class="navigation-step" style="margin-left: 108px">
+            <span class="step-index">3</span>
+            <p class="step-desc">注册成功</p>
+        </div>
+    </div>
+    <!--    输入手机号-->
+    <div id="input-wrp">
+        <!--        手机号栏-->
+        <form action="" method="post">
+            <div class="form-list">
+                <label for="username">用 户 名</label>
+                <input type="text" id="username" name="username" maxlength="20" placeholder="您的账户名和登录名">
+            </div>
+            <div class="form-validate"></div>
+
+            <div class="form-list">
+                <label for="password">设置密码</label>
+                <input type="text" id="password" name="password" placeholder="建议使用两种或两种以上字符组合">
+            </div>
+            <div class="form-validate"></div>
+
+            <div class="form-list">
+                <label for="Repassword">确认密码</label>
+                <input type="text" id="Repassword" name="Repassword" placeholder="请再次输入密码">
+            </div>
+            <div class="form-validate"></div>
+
+            <div class="form-list">
+                <label for="email">邮箱验证</label>
+                <input type="text" id="email" name="email" placeholder="邮箱验证">
+            </div>
+            <div class="form-validate"></div>
+
+            <div class="form-list">
+                <label for="emailIdentify" id="telId">邮箱验证码</label>
+                <input type="text" id="emailIdentify" name="emailIdentify" placeholder="请输入邮箱验证码">
+                <!--                <img src="img/image2.jpg" alt="" id="click" />-->
+                <div class="feachBtn" style="font-size: 12px">获取验证码</div>
+            </div>
+            <div class="form-validate"></div>
+            <!--        下一步-->
+            <div class="form-next" onclick="">立即注册</div>
+            <!--        其他用户注册-->
+            <div class="reg-other">
+                <a href="" class="form-otherperson"><i class="reg-ohter-icon">
+                    <img src="image/reg.png" style="height: 100%;width: 100%">
+                </i>企业用户注册</a>
+                <a href="" class="form-otherperson1"><i class="reg-ohter-icon">
+                    <img src="image/leg.png" style="height: 100%;width: 100%">
+                </i>海外用户注册</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+<!--注册底部-->
+<div id="zc-bottom">
+    <div id="form-footer" class="footer w">
+        <div class="links">
+            <a href="//www.jd.com/intro/about.aspx"> 关于我们</a>|
+            <a href="//www.jd.com/contact/">联系我们</a>|
+            <a href="//zhaopin.jd.com/">人才招聘</a>|
+            <a href="//www.jd.com/contact/joinin.aspx">商家入驻</a>|
+            <a href="//www.jd.com/intro/service.aspx">广告服务</a>|
+            <a href="//app.jd.com/">手机京东</a>|
+            <a href="//club.jd.com/links.aspx">友情链接</a>|
+            <a href="//media.jd.com">销售联盟</a>|
+            <a href="//club.jd.com/">京东社区</a>|
+            <a href="//gongyi.jd.com">京东公益</a>|
+            <a href="//en.jd.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+        </div>
+        <div class="copyright">
+            Copyright&copy;2004-2019&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="js/zhuce2.js"></script>
+</html>

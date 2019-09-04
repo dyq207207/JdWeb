@@ -1,0 +1,538 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+ul,li,a，input{
+	list-style: none;
+}
+@font-face {
+    font-family: 'iconfont';
+    src: url(//misc.360buyimg.com/mtd/pc/index_2019/1.0.0/fonts/ba43574760fe93a35fca3c6f9b9e73f4.eot);
+    src: url(//misc.360buyimg.com/mtd/pc/index_2019/1.0.0/fonts/ba43574760fe93a35fca3c6f9b9e73f4.eot?#iefix) format("embedded-opentype"), url(//misc.360buyimg.com/mtd/pc/index_2019/1.0.0/fonts/a84f5777e97992c6fb6d423c003f187b.woff) format("woff"), url(//misc.360buyimg.com/mtd/pc/index_2019/1.0.0/fonts/43f6b5fd284d120fd59582a14e3e0844.ttf) format("truetype"), url(//misc.360buyimg.com/mtd/pc/index_2019/1.0.0/fonts/7e3a7b715cf938242acf0fe64a0e1817.svg#iconfont) format("svg");
+}
+.iconfont {
+    font-family: 'iconfont', sans-serif;
+    font-style: normal;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+/*整个网页body*/
+#s_mainBody{
+	height: 100%;
+	width: 100%;
+}
+.w{
+	margin: auto;
+}
+/*顶部*/
+#partOne{
+	height: 30px;
+	width: 100%;
+	background-color: #e3e4e5;
+}
+/*左*/
+#OLeft{
+	height: 30px;
+	width: 162px;
+	position: absolute;
+	top: 0;
+	left: 65px;
+}
+/*返回京东首页、地点*/
+.OLeftBox{
+	height: 100%;
+	width: 80px;
+	float: left;
+	cursor: pointer;
+}
+.OLeftBox a{
+    color: #666;
+    font-size: 12px;
+    text-decoration: none;
+    line-height: 30px;
+}
+.OLeftBox p{
+	line-height: 30px;
+	font-size: 14px;
+}
+#location{
+	height: 190px;
+	width: 190px;
+	display: none;
+	z-index: 1;
+	position: absolute;
+	top: 30px;
+	border: 1px solid lightgray;
+	background-color: white;
+}
+#location li{
+	margin:5px;
+	line-height: 30px;
+	font-size:14px;
+	float: left;
+}
+#OLeft :hover #location{
+	display: block;
+}
+/*右*/
+#ORight{
+	height: 30px;
+	width: 820px;
+	position: absolute;
+	right: 63px;
+	top: 0;
+}
+/*头部顶部的选择*/
+.tRSelect{
+	height: 100%;
+	width: 90px;
+	float: left;
+	cursor: pointer;
+	position: relative;
+	border-right: 1px solid azure;
+}
+.tRSelect p{
+	font-size: 12px;
+	text-align: center;
+	line-height: 30px;
+}
+.tRBox{
+	font-size: 16px;
+	width: 120px;
+	color: #8F8F8F;
+	text-align: center;
+	line-height: 30px;
+	border: 1px solid #e3e4e5;
+	background: white;
+	display: none;
+	position: absolute;
+	overflow: auto;
+	z-index: 1;
+}
+#ORight :hover .tRBox{
+	display: block;
+}
+#myJD{
+	height: 150px;
+}
+#companyBuy{
+	height: 120px;
+}
+
+/*第二部分：搜索+导航*/
+#partTwo{
+	height: 120px;
+	width: 91%;
+	position: relative;
+	border-bottom: 2px solid red;
+}
+/*搜索页面logo*/
+#searLogo{
+	height: 50px;
+	width: 134px;
+	position: absolute;
+	left: 0;
+	top: 20px;
+}
+#searLogo img{
+	height: 100%;
+	width: 100%;
+}
+/*搜索框*/
+#searBox{
+	height: 36px;
+	width: 700px;
+	border: 2px solid red;
+	position: absolute;
+	top: 20px;
+	right: 300px;
+}
+#searInput{
+	height: 30px;
+	width: 610px;
+	margin-top: 3px;
+	margin-left: 15px;
+}
+#searInput input{
+	height: 100%;
+	width: 100%;
+	border: 0px;
+	font-size: 16px;
+}
+#sear{
+	height: 100%;
+	width: 70px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#sear button{
+	height: 100%;
+	width: 100%;
+	line-height: 33px;
+	font-size: 18px;
+	color: white;
+	text-align: center;
+	background-color: red;
+	cursor: pointer;
+	border: 0px;
+}
+/*购物车*/
+#shopCar{
+	height: 35px;
+	width: 114px;
+	border: 2px solid #e3e4e5;
+	position: absolute;
+	right: 125px;
+	top: 20px;
+	background-color: #f9f9f9;
+}
+#shopCar p{
+	height: 35px;
+	width: 100px;
+	color: red;
+	line-height: 32px;
+	font-size: 14px;
+	margin-left: 20px;
+}
+#shopping-amount{
+	position: absolute;
+	right: 30px;
+	top: -4px;
+}
+/*热词*/
+#hotWord{
+	height: 20px;
+	width: 500px;
+	position: absolute;
+	top: 60px;
+	left: 400px;
+}
+#hotWord li{
+	margin:2px;
+	margin-right: 15px;
+	font-size:12px;
+	color: #666;
+	float: left;
+}
+/*导航栏*/
+#searPilot{
+	height: 37px;
+	width: 1000px;
+	position: absolute;
+	bottom: 0;
+}
+#allGoods{
+	height: 37px;
+	width: 157px;
+	background-color: #f30213;
+	font-size: 18px;
+	color: white;
+	line-height: 33px;
+	text-align: center;
+}
+#pilot{
+	height: 37px;
+	width: 840px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#pilot li{
+	height: 100%;
+	width: 120px;
+	font-size: 18px;
+	color: black;
+	float: left;
+	line-height: 34px;
+	text-align: center;
+}
+/*第三部分：筛选条件*/
+#partThree{
+	height: 266px;
+	width: 91%;
+}
+#brandBox{
+	height: 125px;
+	width: 100%;
+	border-bottom: 1px solid #e6e6e6;
+}
+#brandBigBox{
+	height: 125px;
+	width: 110px;
+	float: left;
+	font-size:14px;
+	color: black;
+	text-align: center;
+	line-height: 30px;
+	background-color: #f3f3f3;
+}
+.brandSmallBox{
+	height: 40px;
+	width: 120px;
+	float: left;
+	margin:10px;
+	border: 1px solid #e6e6e6;
+}
+.brandSmallBox img{
+	height: 100%;
+	width: 100%;
+}
+.catalogue{
+	height: 34px;
+	width: 100%;
+	border-bottom: 1px solid #e6e6e6;
+	overflow: hidden;
+}
+.catalBigBox{
+	height: 34px;
+	width: 110px;
+	float: left;
+	font-size:14px;
+	color: black;
+	text-align: center;
+	line-height: 30px;
+	background-color: #f3f3f3;
+
+}
+.catalSmallBox{
+	height: 34px;
+	width: 80px;
+	float: left;
+	font-size:12px;
+	color: #345abf;
+	line-height: 30px;
+	text-align: center;
+	background-color: white;
+	margin-right: 30px;
+	cursor: pointer;
+	overflow: hidden;
+}
+#orderBy{
+	height: 33px;
+	width: 100%;
+	background-color: #f7f7f7;
+}
+.orderBox{
+	height: 30px;
+	width: 60px;
+	float: left;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	border: 1px solid #eee;
+	background-color: white;
+}
+.orderBox p{
+	font-size: 14px;
+	color: black;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+}
+.orderBox:hover p{
+	border: 1px solid red;
+}
+p:hover .arrow{
+	background: url(../image/arrow.png) no-repeat 0 -140px;
+}
+.arrow{
+	height: 11px;
+	margin-top: 10px;
+	margin-right: 10px;
+	float: right;
+	width: 7px;
+	overflow: hidden;
+	background: url(../image/arrow.png) no-repeat 0 -100px;
+}
+#priceInterval{
+	height: 30px;
+	width: 115px;
+	float: left;
+	display: block;
+	position: relative;
+	background-color: white;
+}
+#priceInterval p{
+	float: right;
+	line-height: 30px;
+}
+#priceInterval input{
+	height: 25px;
+	width: 40px;
+	border: 1px solid black;
+	float: right;
+	margin: 3px;
+}
+#sureBox{
+	height: 35px;
+	width: 126px;
+	position: absolute;
+	top: 30px;
+	left: -6px;
+	float: left;
+	display: none;
+	z-index: 1;
+	background-color: white;
+}
+#sureBox input{
+	height: 25px;
+	width: 46px;
+	border: 1px solid #ccc;
+	line-height: 24px;
+	margin-right: 8px;
+	margin-left: 8px;
+}
+#priceInterval:hover #sureBox{
+	display: block;
+}
+/*第四部分：商品展示*/
+#partFour{
+	height: 813px;
+	width: 91%;
+	margin-top: 20px;
+	border: 1px solid #e6e6e6;
+	position: relative;
+}
+/*广告部分*/
+#adBox{
+	width: 15%;
+	height: 98%;
+	margin: 2px;
+	border: 1px solid beige;
+}
+.adSmallBox{
+	width: 100%;
+	height: 33%;
+	margin: 2px;
+	border: 1px solid #f7f7f7;
+}
+.adSmallBox img{
+	height: 60%;
+	width: 90%;
+	margin: 3px;
+}
+.adSmallBox i{
+	width: 100%;
+	height: 7%;
+	color: red;
+	font-size: 16px;
+	float: left;
+	margin: 5px;
+}
+.adSmallBox p{
+	height: 22%;
+	width: 96%;
+	font-size: 12px;
+	color: black;
+	word-wrap: break-word;
+	float: left;
+	margin: 5px;
+}
+/*商品展示部分*/
+#goodsShowBox{
+	height: 100%;
+	width: 85%;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.goodsBigBox{
+	height: 31.6%;
+	width: 23%;
+	float: left;
+	margin: 5px;
+	border: 1px solid white;
+}
+.goodsBigBox img{ 
+	height: 230px;
+	width: 189px;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.goodsBigBox p{
+	font-size:22px;
+	color: red;
+	margin: 5px;
+}
+.goodsBigBox:hover{
+	border: 1px solid lightgray;
+}
+.goodsDescription{
+	height: 22%;
+	width: 95%;
+	margin: 10px;
+}
+.goodsDescription p{
+	width: 100%;
+	height: 100%;
+	font-size: 13px;
+	color: #333;
+	text-align: left;
+	word-wrap: break-word;
+	line-height: 24px;
+}
+#goodsZiying{
+	height: 5%;
+	width: 100%;
+}
+#goodsZiying i{
+	height: 100%;
+	width: 20%;
+	font-size: 12px;
+	color: red;
+	line-height: 21px;
+	text-align: center;
+	border: 1px solid #ccc;
+	margin-left: 10px;
+}
+/*第五部分：分页*/
+#partFive{
+	height: 48px;
+	width: 91%;
+}
+#partFive input{
+	height: 39px;
+	width: 80px;
+	float: left;
+	margin-top: 5px;
+	margin-left: 5px;
+	background-color: #f3f3f3;
+	border: 0;
+}
+#partFive p{
+	line-height: 40px;
+	font-size: 16px;
+	float: left;
+	margin: 5px;
+}
+#partFive li{
+	float: left;
+	height: 35px;
+	width: 40px;
+	border: 1px solid #e3e4e5;
+	text-align: center;
+	line-height: 33px;
+	margin-top: 6px;
+	background-color: #ddd;
+}
+#partFive a{
+	color: black;
+	text-decoration: none;
+}
+#jumpPage input{
+	height: 30px;
+	width: 50px;
+	background-color: white;
+	border: 1px solid black;
+	margin-top:10px;
+}
+/*第六部分：底部*/
+#partSix{
+	height: 500px;
+	width: 100%;
+}
+#partSix img{
+	height: 100%;
+	width: 100%;
+}

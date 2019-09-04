@@ -1,0 +1,184 @@
+.header{background-color: #E3E4E5;width: 100%;height: 31px;float: left;}
+.header_1{width: 78.4%;height: 30px;margin:0 10.8%;float: left;}
+.header_2{width: 200px;height: 30px;float: left;}
+.header_3{width: 781.2px;height: 30px;float: right;}
+.top{width: 78.4%;height: 97px;float: left;margin: 0 10.8%;padding: 10px 0 0 0 }
+.logodiv{ float: left;width: 277px;height: 50px;margin: 15px 0 22px}
+.logo1{margin: 2px 0 0 0 ;float: left}
+.gwcfont1{ float: left; display: block;position: absolute;width: 100px;height: 40px;line-height: 99em;top:70px;left: 22%;background: url("../image/cart-icon.png") #ffffff no-repeat }
+.sousuokuang{float: right;background-color: #c91623;width: 325.75px ;height: 28px ;margin: 30px 0 0 0}
+.sousuo_text{width: 256px;height: 14px;padding: 3px 5px ;margin: 2px}
+.sousuo_btn{width: 48px;height: 24px ;background-color: #c91623;color: #ffffff ;border: 0px}
+.gwc_total{float: left;}
+.store_list{margin: 0 0 30px 0 ;width: 100%; float: left}
+.qbsp_h{width: 78.4%;height: 37px;margin: 10px 0 0 0}
+.auto{ margin: auto}
+.qbsp_li{font-size: 16px;font-weight: bold;margin: 5px 30px 0 0;padding: 0 0 10px; float: left }
+.float_right1{ float:right;margin-bottom: 10px}
+.float_right2{float: right }
+.float_right3{float: right;font-weight: bold }
+.kuang1{background-color: #f3f3f3; width:78.4%;height: 33px;margin:0 10.8% 10px;padding: 5px 0;float: left}
+.div_btn_qx{float: left; width: 133px;height: 25px;padding: 7px 0 0 11px;line-height: 18px}
+.div_btn_sp{float: left; width: 208px;height: 32px; line-height: 32px}
+.div_btn_zw{float: left; width: 140px;height: 32px; line-height: 32px;padding: 0 10px 0 20px}
+.div_btn_dj{float: left; width: 120px;height: 32px; line-height: 32px; padding: 0 40px 0 0;text-align: right}
+.div_btn_num{float: left;width: 80px; height: 32px; line-height: 32px;text-align: center}
+.div_btn_xj{float: left ;width: 100px;height: 30px; line-height: 32px;padding-right: 40px;text-align: right}
+.div_btn_cz{float: left ;width: 70px ;height: 32px; line-height: 32px}
+.kuang2{width:979px;height: 30px;margin:0 10.8%;padding-left: 11px ;float: left}
+.dpcheckbox{float: left;margin:9px 8px 0 0;}
+.dp_btn{height: 18px;line-height: 17px;vertical-align: middle;color: rgb(255, 255, 255);font-weight: 400;padding: 0px 5px;background: rgb(218, 0, 18);border-radius: 2px; float:left;margin: 6px 0}
+.kuang2 a:hover{color:#ffffff}
+.span_style1{display: block; width:411.17px ;height: 30px;float: left}
+.a_img_yhq{background-image: url("../image/yhq.png") ;width:80px ;height: 24px;margin-top: 4px;}
+.sp_list{border-top: 2px;width: 78.4% ;float: left;margin: 0 10.8% ;    border-style: solid;
+    border-width: 2px 1px 1px;
+    border-color: #aaa #f1f1f1 #f1f1f1;}
+.spcheckbox_1{float: left;padding: 15px 0 10px 0;width:40px;height: 20px}
+.spcheckbox_1_1{float: left ;margin: 0 5px 0 11px;width: 16px;height: 20px;}
+.sp_1{ float: left;width:950px;height: 138px; }
+.sp_1_1{padding: 15px 0 10px 0 ;width: 300px; height: 82px; float: left}
+.float_left_1{float: left;margin: 0 10px 0 0 }
+.icon_xbz{ background-image: url("../image/icon1.png");width: 17px;height:16px;background-position: -27px 428px;float: left }
+.a_xbz{color: #aaaaaa;padding: 1px 4px 0 7px }
+.div_width_1{width: 208px; float: left}
+.block_a1{display: block ;width:206px;}
+.div_width_2{width:130px; height: 40px ;padding: 15px 0 0 20px; float: left }
+.div_width_3{width: 130px;height: 20px; }
+.div_width_4{width:206px;float: left;}
+.div_width_5{width: 160px; height: 30px; float: left;padding: 15px 40px 10px 0 }
+.div_width_6{width:80px ;height: 42px;padding: 15px 0 10px 0;float: left }
+.del_btn{height: 18px;line-height: 18px;padding: 1px 0;width: 16px;text-align: center;color: #666;margin: 0;background: #fff;float: left;border: 1px solid #cacbcb;border-left: 0;}
+.num_text{ display: block;width: 32px; height: 14px;padding: 2px; text-align: center;float: left}
+.div_width_7{width: 105px; height: 30px; float: left;padding: 15px 25px 10px 0 }
+.div_width_8{width: 80px;height: 65px ;float: left;padding: 15px 0 10px 0}
+.div_width_9{width: 950px;height: 20px;float: left }
+.div_width_10{ width: 78.4%; height: 52px ;margin: 0 10.8%;float: left;border: 1px solid #f0f0f0;position: relative;top:20px}
+.div_width_11{ width: 650px;height: 52px;float: right}
+.div_width_12{height: 43px;margin: 7px 5px 0 10px ;float: right }
+.div_cuxiao{ padding-right: 5px;width: auto;text-align: right }
+.div_width_13{width:100.53px;height: 44px;float: right;color: #999999 ;line-height: 20px;margin-top: 7px}
+
+.del_sp{line-height: 50px; display: block;float: left;margin-left: 5px }
+.clear_gwc{line-height: 50px; display: block;float: left;margin-left: 5px ;font-weight: bold }
+
+.b_jiesuan{background-image: url("../image/jiesuanicon.png");margin-left: 5px;width: 12px;height: 18px;float: right}
+.img_qjs{background-image: url("../image/qjs.png");width: 94px;height: 52px; float: right }
+
+.div_js_btn_qx{float: left;height: 18px;line-height: 18px;padding: 16px 0 16px 9px;white-space: nowrap; }
+.a_zenpin{display:block; width: 310px;height: 20px ;float:left}
+.span_num{ margin: 0 5px}
+.gift_price{margin-left: 7px }
+
+.em_price{ line-height: 20px;text-align: right;font-family: verdana; font-size: 16px;color: #E2231A;font-weight: 700; }
+.em_num{ line-height: 20px; color: #E2231A;font-family: verdana;font-weight: 700;margin: 0 3px;}
+
+
+.afont1{color: #999999; display: block;height: 16px; line-height: 30px;float: left;text-align: center;margin:0 15px; }
+.jg{color: #999999 ;float: left; line-height: 30px}
+.iconxiala{position: absolute;top: 10px;width: 12px;height: 12px;line-height: 12px;}
+.iconxiala_position_1{right: 57.8%;top: 10px;}
+.iconxiala_position_2{right: 45%;top: 10px;}
+.iconxiala_position_3{right: 32.1%;top: 10px;}
+.iconxiala_position_4{right: 25.7%;top: 10px;}
+.iconxiala_position_5{right: 19.25%;top: 10px;}
+.icon_addr_xl{ position: absolute;top:140px;right:11.5%;background-image: url("../image/iconbb.png");width: 18px;height: 18px; background-position:5px 5px;}
+.afont2{width: 48px;}
+.afont5{width: 80px;}
+.afont6{width: 30px;margin: 0}
+.afont7{width: 20px;margin: 0}
+.afont8{width: 50px;overflow: hidden ;padding: 0px 0 7px 0px;margin-left:90px}
+.asize1{font-size: 14px}
+.acolor1{ color: #e1251b}
+.acolor2{color: #e2231a}
+.acolor3{color: #999999 }
+
+.plus{
+    background-image: url("../image/icon1.png");width: 38px;height:16px;background-position: 0px 110px;float: left;margin: 6px 15px 6px 0px;
+}
+/*底部*/
+
+#footer {
+    height: 400px;
+    width: 78.4%;
+    background-color: #ffffff;
+    margin: 0px 10.8%;
+    float: left;
+}
+
+#service-2014 {
+    margin:0 0 20px;
+    float: left;
+    width: 100%;
+}
+#service-2014 dl {
+    float: left;
+    width: 120px;
+    padding-left: 20px;
+}
+.w{
+    width:997px;
+    margin:auto;
+}
+#service-2014 dl.fore5 {
+    width: 100px
+}
+
+#service-2014 dt {
+    padding: 6px 0;
+    font: 400 16px/24px "microsoft yahei"
+}
+
+#service-2014 dd {
+    line-height: 20px
+}
+
+#service-2014 .slogan {
+    height: 54px;
+    padding: 20px 0;
+    margin-bottom: 14px;
+    background: #F5F5F5;
+    text-align: center
+}
+
+#service-2014 .slogan img {
+    margin-right: 20px;
+    text-align: center;
+}
+
+#service-2014 .item {
+    display: inline-block;
+    left: 50%;
+    top: 20px;
+    width: 240px;
+    height: 54px;
+    text-align: center;
+    vertical-align: middle;
+    font: 400 18px/50px "microsoft yahei"
+}
+
+#coverage {
+    float: right;
+    width: 300px;
+    height: 168px;
+    background: url("../image/dt.png") no-repeat 60px -131px;
+}
+
+#coverage .dt {
+    padding: 6px 40px 15px 80px;
+    font: 400 16px/24px "microsoft yahei"
+}
+
+#coverage .dd {
+    padding: 0 40px 15px 80px
+}
+
+.copyright {
+    clear: both;
+    text-align: center;
+}
+.st2{line-height: 30px;
+    width: 80px;
+    float:left;
+}
+

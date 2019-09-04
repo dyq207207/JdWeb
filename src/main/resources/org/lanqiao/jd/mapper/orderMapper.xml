@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.jd.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.jd.entity.Order" >
+    <id column="order_id" property="order_id" jdbcType="INTEGER" />
+    <result column="address_id" property="address_id" jdbcType="INTEGER" />
+    <result column="pay_method" property="pay_method" jdbcType="VARCHAR" />
+    <result column="order_money" property="order_money" jdbcType="DOUBLE" />
+    <result column="creat_time" property="creat_time" jdbcType="TIMESTAMP" />
+    <result column="order_status" property="order_status" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, address_id, pay_method, order_money, creat_time, order_status, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `order`
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.jd.entity.Order" >
+    insert into order (order_id, address_id, pay_method, 
+      order_money, creat_time, order_status, 
+      userId)
+    values (#{order_id,jdbcType=INTEGER}, #{address_id,jdbcType=INTEGER}, #{pay_method,jdbcType=VARCHAR}, 
+      #{order_money,jdbcType=DOUBLE}, #{creat_time,jdbcType=TIMESTAMP}, #{order_status,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.jd.entity.Order" useGeneratedKeys="true" keyProperty="order_id" keyColumn="order_id">
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="order_id != null" >
+        order_id,
+      </if>
+      <if test="address_id != null" >
+        address_id,
+      </if>
+      <if test="pay_method != null" >
+        pay_method,
+      </if>
+      <if test="order_money != null" >
+        order_money,
+      </if>
+      <if test="creat_time != null" >
+        creat_time,
+      </if>
+      <if test="order_status != null" >
+        order_status,
+      </if>
+      <if test="userId!= null" >
+        user_id,
+      </if>
+      <if test="provice!= null" >
+        provice,
+      </if>
+      <if test="city!= null" >
+        city,
+      </if>
+      <if test="district!= null" >
+        district,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="order_id != null" >
+        #{order_id,jdbcType=INTEGER},
+      </if>
+      <if test="address_id != null" >
+        #{address_id,jdbcType=INTEGER},
+      </if>
+      <if test="pay_method != null" >
+        #{pay_method,jdbcType=VARCHAR},
+      </if>
+      <if test="order_money != null" >
+        #{order_money,jdbcType=DOUBLE},
+      </if>
+      <if test="creat_time != null" >
+        #{creat_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="order_status != null" >
+        #{order_status,jdbcType=VARCHAR},
+      </if>
+      <if test="userId!= null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="provice!= null" >
+        #{provice,jdbcType=VARCHAR},
+      </if>
+      <if test="city!= null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district!= null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.jd.entity.Order" >
+    update order
+    <set >
+      <if test="address_id != null" >
+        address_id = #{address_id,jdbcType=INTEGER},
+      </if>
+      <if test="pay_method != null" >
+        pay_method = #{pay_method,jdbcType=VARCHAR},
+      </if>
+      <if test="order_money != null" >
+        order_money = #{order_money,jdbcType=DOUBLE},
+      </if>
+      <if test="creat_time != null" >
+        creat_time = #{creat_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="order_status != null" >
+        order_status = #{order_status,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null" >
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.jd.entity.Order" >
+    update order
+    set address_id = #{address_id,jdbcType=INTEGER},
+      pay_method = #{pay_method,jdbcType=VARCHAR},
+      order_money = #{order_money,jdbcType=DOUBLE},
+      creat_time = #{creat_time,jdbcType=TIMESTAMP},
+      order_status = #{order_status,jdbcType=VARCHAR},
+      user_id = #{user_id,jdbcType=INTEGER}
+    where order_id = #{order_id,jdbcType=INTEGER}
+  </update>
+</mapper>

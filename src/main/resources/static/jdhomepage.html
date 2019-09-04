@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>京东(JD.COM)-正品低价、品质保障、配送及时、轻松购物！</title>
+    <link rel="stylesheet" href="css/jdhomepage.css" type="text/css">
+    <link rel="stylesheet" href="css/base.css" type="text/css">
+    <link rel="stylesheet" href="css/footer.css" type="text/css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+            setTimeout("move()", 0);
+            $(document).scroll(function () {
+                var scroH = $(this).scrollTop();  //滚动高度
+                if (scroH > 300) {
+                    $("#footerSearch").fadeIn(300);
+                } else {
+                    $("#footerSearch").fadeOut(300);
+                }
+            });
+            $(function () {
+                $("img").hover(function () {
+                    $(this).animate({opacity: "0.8"}, 300)
+                }, function () {
+                    $(this).animate({opacity: "1"}, 300);
+                })
+            })
+
+        });
+        $(function () {
+            /*得到登录名*/
+//            var search=decodeURI(location.search);
+//            var loginName = sessionStorage.getItem("loginName");
+            var loginName = JSON.parse($.cookie("loginName"));
+            var userName = "";
+            var userId = 0;
+//            alert(loginName);
+//            if(search.indexOf("loginname=")!==-1) {
+//            var loginName = search.substring(11);
+            /*对登录名进行判断，若没有登录名，说明用户未登录*/
+            if (loginName !== null) {
+                $.ajax({
+                    url: "http://localhost:8080/checkUserStatus",
+                    type: "post",
+                    data: {
+                        'loginName': loginName
+                    },
+                    dataType: "json",
+                    async: false,
+                    /*new Vue({
+                        el: '#user_inner',
+                        data: {
+                            loginName: loginName
+                        }
+                    });*/
+                    success: function (result) {
+                        /*var obj = eval("("+result+")");
+                        var data1=eval("("+obj+")");
+                        alert(data1.user_id);*/
+                        if (result.userName != null) {
+                            userName = JSON.stringify(result.userName);
+                            userId = JSON.stringify(result.userId);
+                            if (userName != "" && userId != "") {
+                                $.cookie("userName", userName, {path: '/', secure: false});
+                                $.cookie('userId', userId, {path: '/', secure: false});
+
+                            }
+                            $("#welcome").html("Hi~" + result.userName);
+                            $(".st2").html(result.userName);
+                            $(".user_ad").replaceWith("<div class=\"user_tip\" id='exitlogin'><a href='' onclick='exitLogin'>退出</a></div>")
+                            $(function () {
+                                $("#exitlogin").click(function () {
+                                    $.ajax({
+                                        url: "http://localhost:8080/changeUserStatus",
+                                        type: "post",
+                                        data: {
+                                            'loginName': loginName,
+                                            "userStatus": false
+                                        },
+                                        dataType: "json",
+                                        async: false,
+
+                                        success: function () {
+                                            alert("退出成功！");
+                                            window.location.href = "jdlogin.html";
+                                        }
+                                    })
+                                })
+                            })
+                        }
+                        else {
+                            /* new Vue({
+                                     el:'#exit_Login',
+                                     data:{
+                                         exit_Login:"退出"
+                                     }
+                             })*/
+                        }
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+                });
+            }
+
+            $(".shopping span").click(function () {
+                window.open("gwc.html");
+            })
+            $(".search1").click(function () {
+                var searchText=$("input[name='searchText']").val();
+                $.cookie("searchText", JSON.stringify(searchText),{path:"/"});
+                window.open("search.html");
+            })
+
+        });
+
+
+        var i = -1;
+        var imgs = new Array("lunboPic1.jpg", "lunboPic2.jpg", "lunboPic3.jpg");
+
+        function move() {
+            i++;
+            if (i == imgs.length) {
+                i = 0;
+            }
+            $(".focus_intm_img_lunbo img").attr("src", "image/" + imgs[i]);
+            setTimeout("move()", 3000);
+        }
+
+    </script>
+</head>
+<body>
+<div class="index">
+    <a name="dingbu"> </a>
+    <!--头部-->
+    <div class="head">
+        <!--顶部导航--->
+        <div id="shortcut">
+            <ul>
+                <li class="st1">
+                    <i class="iconfont iconfont-location" style="color: red"></i>
+                    福建
+                </li>
+                <li class="st2"><a href="jdlogin.html">你好，请登录</a></li>
+                <li class="spacer"></li>
+                <li><a href="zhuce.html">免费注册</a></li>
+                <li class="spacer"></li>
+                <li><a href="myOrder.html" target="_blank">我的订单<i class="iconfont"></i></a></li>
+                <li class="spacer"></li>
+                <li>我的京东</li>
+                <li class="spacer"></li>
+                <li>京东会员</li>
+                <li class="spacer"></li>
+                <li class="st3">
+                    企业采购
+                    <i class="iconfont"></i>
+                </li>
+                <li class="spacer"></li>
+                <li>客户服务<i class="iconfont"></i></li>
+                <li class="spacer"></li>
+                <li>网站导航<i class="iconfont"></i></li>
+                <li class="spacer"></li>
+                <li>手机京东</li>
+            </ul>
+        </div>
+        <div id="header">
+            <div class="logo"></div>
+            <div class="search">
+                <form>
+                    <input type="text" name="searchText" class="aa">
+                    <button class="search1"><i class="iconfont"></i></button>
+                </form>
+            </div>
+
+            <div class="shopping">
+                <i class="iconfont"></i>
+                <span >我的购物车</span>
+                <i class="ci-count shopping-amount">0</i>
+            </div>
+            <div id="mobile_static">
+                <div id="mobile_static_info"></div>
+            </div>
+            <div id="hotwords">
+                <ul>
+                    <li class="first"><a href="index1.html" class="first">优惠300元</a></li>
+                    <li class="first1"><a href="index1.html" class="first1">正品良药</a></li>
+                    <li class="first1">空调钜惠</li>
+                    <li class="first1">开关5折</li>
+                    <li class="first1">美妆新品</li>
+                    <li class="first1">鞋靴清仓</li>
+                    <li class="first1">每100-50</li>
+                </ul>
+            </div>
+            <div id="navitems">
+                <ul>
+                    <a href="index1.html">
+                        <li class="navitems-1">秒杀</li>
+                    </a>
+                    <li class="navitems-1 navitems-2">优惠卷</li>
+                    <li class="navitems-1 navitems-3">Plus会员</li>
+                    <li class="navitems-1 navitems-3">品牌闪购</li>
+                    <li class="navitems-1" style="color: black">拍卖</li>
+                    <li class="navitems-1 navitems-3">京东时尚</li>
+                    <li class="navitems-1 navitems-3">京东超市</li>
+                    <li class="navitems-1 navitems-3">京东生鲜</li>
+                    <li class="navitems-1 navitems-3">海囤全球</li>
+                    <li class="navitems-1 navitems-3">京东金融</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <!--主内容-->
+    <div class="mainInfo">
+        <div id="cate_menu_item">
+            <ul>
+                <li class="cate_menu_item_1"><a href="index1.html">家用电器</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">电脑</a>/<a href="index1.html">运营商</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">家居</a>/<a href="index1.html">办公</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">男装</a>/<a href="index1.html">家具</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">美妆</a>/<a href="index1.html">女装</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">女装</a>/<a href="index1.html">个护清洁</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">男鞋</a>/<a href="index1.html">箱包</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">房产</a>/<a href="index1.html">运动</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">母婴</a>/<a href="index1.html">汽车</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">食品</a>/<a href="index1.html">玩具乐器</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">艺术</a>/<a href="index1.html">酒类</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">医药保健</a>/<a href="index1.html">礼品鲜花</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">图书</a>/<a href="index1.html">计生情趣</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">机票</a>/<a href="index1.html">文娱</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">理财</a>/<a href="index1.html">酒店</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">安装</a>/<a href="index1.html">众筹</a>/<a
+                        href="index1.html">数码</a></li>
+                <li class="cate_menu_item_2"><a href="index1.html">工业品</a></li>
+            </ul>
+        </div>
+        <div id="focus_item_img">
+            <div class="focus_intm_img_lunbo">
+                <ul>
+                    <li><img src="image/lunboPic1.jpg"></li>
+                </ul>
+            </div>
+            <div id="next_lunbo_img">></div>
+            <div></div>
+            <div id="pre_lunbo_img"><</div>
+
+        </div>
+        <div id="j_fs_co13">
+            <div id="user_inner">
+                <div class="user_inner_plus">
+                    <div class="user_show1"><img src="image/robot.png"></div>
+                    <div class="user_tip" id="welcome">Hi~欢迎逛京东！</div>
+                    <div class="user_tip user_ad" id="exit_Login"><a href="jdlogin.html">登录</a> | <a href="zhuce.html">注册</a>
+                    </div>
+                </div>
+                <div class="user_inner_plus1">
+                    <div class="user_profit">新人福利</div>
+                    <div><a href="index1.html" class="user_profit user_profit1">PLUS会员</a></div>
+                </div>
+            </div>
+            <div id="news2">
+                <div class="news_hd">
+                    <h5 class="news_tit">京东快报</h5>
+                    <a href="index1.html" class="news_more">更多
+                        <i class="iconfont"></i>
+                    </a>
+                </div>
+                <ul>
+                    <li class="news_link">
+                        <span class="news_tag">推荐</span>
+                        华为麒麟990新突破！全新芯片架构横空出世
+                    </li>
+                    <li class="news_link">
+                        <span class="news_tag">热评</span>
+                        256GB＋8GB＋四曲面，价格感人，你还不出手吗？
+                    </li>
+                    <li class="news_link">
+                        <span class="news_tag">热评</span>
+                        年度真机皇配置！6000mAh+骁龙855 Plus！
+                    </li>
+                    <li class="news_link">
+                        <span class="news_tag">热评</span>
+                        iPhone 11国行售价曝光，XR2也相应而出
+                    </li>
+                </ul>
+            </div>
+            <div id="service">
+                <ul>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+                    <li class="service_item">
+                        <img src="image/e.png" class="service_item_img">
+                        <div class="service_item_text">话费</div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--秒杀-->
+    <div class="seckill">
+        <div class="seckill_info">
+            <div class="seckill_info1">
+                <div class="seckill_info1_1">京东秒杀</div>
+                <div class="seckill_info1_2"><span>10:00</span>点场 倒计时</div>
+                <div class="seckill_info1_3">
+                    <div class="hour">01</div>
+                    <div class="diandian">:</div>
+                    <div class="hour min">31</div>
+                    <div class="diandian">:</div>
+                    <div class="hour min">40</div>
+                </div>
+            </div>
+            <!--第一件秒杀商品-->
+            <div class="seckill_info2">
+                <div>
+                    <button class="last_pic"><i class="iconfont"></i></button>
+                </div>
+                <!--显示图片-->
+                <div class="seckill_img"><img src="image/xiaodao.jpg"></div>
+                <!--显示商品信息-->
+                <div class="seckill_text"><a href="index1.html">小刀电动车 3C新国标36V男女滑板车成人电瓶车老人代步车外卖小型电动单车两轮电动自行车 心语 油光亚黑</a>
+                </div>
+                <!--显示原价和秒杀价格-->
+                <div class="seckill_price">
+                        <span class="price_miaosha">
+                            <span class="before"></span>
+                            <i>¥</i>
+                            <span style="margin-left: -15px">1499.00</span>
+                        </span>
+                    <span class="price_origin">
+                            <i style="background-color: white">¥</i>
+                            <span>3599.00</span>
+                        </span>
+                </div>
+            </div>
+            <!--第二件秒杀商品-->
+            <div class="seckill_info2">
+                <!--显示图片-->
+                <div class="seckill_img"><img src="image/xiaodao.jpg"></div>
+                <!--显示商品信息-->
+                <div class="seckill_text"><a href="index1.html">小刀电动车 3C新国标36V男女滑板车成人电瓶车老人代步车外卖小型电动单车两轮电动自行车 心语 油光亚黑</a>
+                </div>
+                <!--显示原价和秒杀价格-->
+                <div class="seckill_price">
+                        <span class="price_miaosha">
+                            <span class="before"></span>
+                            <i>¥</i>
+                            <span style="margin-left: -15px">1499.00</span>
+                        </span>
+                    <span class="price_origin">
+                            <i style="background-color: white">¥</i>
+                            <span>3599.00</span>
+                        </span>
+                </div>
+            </div>
+            <!--第三件秒杀商品-->
+            <div class="seckill_info2">
+                <div>
+                    <button class="last_pic next_pic"><i class="iconfont"></i></button>
+                </div>
+                <!--显示图片-->
+                <div class="seckill_img"><img src="image/xiaodao.jpg"></div>
+                <!--显示商品信息-->
+                <div class="seckill_text"><a href="index1.html">小刀电动车 3C新国标36V男女滑板车成人电瓶车老人代步车外卖小型电动单车两轮电动自行车 心语 油光亚黑</a>
+                </div>
+                <!--显示原价和秒杀价格-->
+                <div class="seckill_price">
+                        <span class="price_miaosha">
+                            <span class="before"></span>
+                            <i>¥</i>
+                            <span style="margin-left: -15px">1499.00</span>
+                        </span>
+                    <span class="price_origin">
+                            <i style="background-color: white">¥</i>
+                            <span>3599.00</span>
+                        </span>
+                </div>
+            </div>
+            <div class="seckill_info1" style="background-color: white">
+                <div><img src="image/g.jpg" class="seckill_img1"></div>
+                <div class="base">
+                    <div class="item-info-title">母婴好物</div>
+                    <div class="item-info-price">低至9.9元</div>
+                    <div class="item-info-type">平类秒杀<i class="iconfont"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="elevator">
+            <ul style="width: 60px;height: 420px">
+                <li class="elevator_1"><span class="elevator_1_text">京东秒杀</span></li>
+                <li class="elevator_1"><span class="elevator_1_text">特色优选</span></li>
+                <li class="elevator_1"><span class="elevator_1_text">频道广场</span></li>
+                <li class="elevator_1"><span class="elevator_1_text">为你推荐</span></li>
+                <li class="elevator_1"><span class="elevator_1_text">京东秒杀</span></li>
+                <li class="elevator_1"><span class="elevator_1_text">京东秒杀</span></li>
+                <li class="elevator_1"><span class="elevator_1_text"><a href="#dingbu">返回顶部</a> </span></li>
+            </ul>
+        </div>
+    </div>
+    <!--底部-->
+    <div id="footer">
+        <div id="service-2014">
+            <div class="slogan">
+                <img src="image/service_items_1.png">
+                <img src="image/service_items_2.png">
+                <img src="image/service_items_3.png">
+                <img src="image/service_items_4.png">
+            </div>
+            <div class="w">
+                <dl class="fore1">
+                    <dt>购物指南</dt>
+                    <dd>
+                        <div><a>购物流程</a>
+                        </div>
+                        <div><a>会员介绍</a>
+                        </div>
+                        <div><a>生活旅行/团购</a>
+                        </div>
+                        <div><a>常见问题</a></div>
+                        <div><a>大家电</a>
+                        </div>
+                        <div><a>联系客服</a></div>
+                    </dd>
+                </dl>
+                <dl class="fore2">
+                    <dt>配送方式</dt>
+                    <dd>
+                        <div><a>上门自提</a>
+                        </div>
+                        <div><a>211限时达</a>
+                        </div>
+                        <div><a>配送服务查询</a>
+                        </div>
+                        <div><a>配送费收取标准</a>
+                        </div>
+                        <div><a>海外配送</a></div>
+                    </dd>
+                </dl>
+                <dl class="fore3">
+                    <dt>支付方式</dt>
+                    <dd>
+                        <div><a>货到付款</a>
+                        </div>
+                        <div><a>在线支付</a>
+                        </div>
+                        <div><a>分期付款</a>
+                        </div>
+                        <div><a>邮局汇款</a>
+                        </div>
+                        <div><a>公司转账</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="fore4">
+                    <dt>售后服务</dt>
+                    <dd>
+                        <div><a>售后政策</a>
+                        </div>
+                        <div><a>价格保护</a>
+                        </div>
+                        <div><a>退款说明</a>
+                        </div>
+                        <div><a>返修/退换货</a>
+                        </div>
+                        <div><a>取消订单</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="fore5">
+                    <dt>特色服务</dt>
+                    <dd>
+                        <div><a>夺宝岛</a></div>
+                        <div><a>DIY装机</a></div>
+                        <div><a>延保服务</a></div>
+                        <div><a>京东E卡</a></div>
+                        <div><a>京东通信</a></div>
+                        <div><a>京东JD+</a></div>
+                    </dd>
+                </dl>
+                <div id="coverage">
+                    <div class="dt">
+                        京东自营覆盖区县
+                    </div>
+                    <div class="dd">
+                        <p>京东已向全国2649个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+                        <p class="ar"><a>查看详情&nbsp;&gt;</a>
+                        </p>
+                    </div>
+                </div>
+                <span class="clr"></span>
+            </div>
+        </div>
+        <div class="copyright">
+            <a target="_blank" href=""><img src="image/ga.png"> 京公网安备11000002000088号</a>&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证070359号&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a target="_blank" href="">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>&nbsp;&nbsp;|&nbsp;&nbsp;新出发京零&nbsp;字第大120007号<br>互联网出版许可证编号新出网证(京)字150号&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="" target="_blank">出版物经营许可证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a>&nbsp;&nbsp;|&nbsp;&nbsp;违法和不良信息举报电话：4006561155<br>Copyright&nbsp;©&nbsp;2004&nbsp;-&nbsp;2016&nbsp;&nbsp;京东JD.com&nbsp;版权所有&nbsp;&nbsp;|&nbsp;&nbsp;消费者维权热线：4006067733<br>京东旗下网站：<a
+                href="" target="_blank">京东钱包</a>
+        </div>
+    </div>
+    <!--底部搜索-->
+    <div id="footerSearch">
+        <div class="logo1"></div>
+        <div class="search search2">
+            <form>
+                <input type="text" name="searchText" class="aa">
+                <button class="search1"><i class="iconfont"></i></button>
+            </form>
+        </div>
+
+        <div class="shopping shopping1">
+            <i class="iconfont"></i>
+            <span>我的购物车</span>
+            <i class="ci-count shopping-amount">0</i>
+        </div>
+    </div>
+</div>
+</body>
+</html>

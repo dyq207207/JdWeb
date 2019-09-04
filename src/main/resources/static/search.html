@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>京东搜索</title>
+    <link rel="stylesheet" type="text/css" href="css/search.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script>
+        $(function () {
+            var gwcSouSuo;
+            var searchText;
+            var userName;
+
+            //从购物车页面来 获取cookie 模拟点击事件
+            if(document.referrer=="http://localhost:8080/gwc.html") {
+                gwcSouSuo = JSON.parse($.cookie("gwcSouSuo"));
+                userName=JSON.parse($.cookie("userName"));
+                if (gwcSouSuo != null) {
+                    $("input[name='condition']").val(gwcSouSuo);
+                    $("#sear button").click();
+                }
+            };
+            //从主页来
+            if(document.referrer=="http://localhost:8080/jdhomepage.html"){
+                searchText = JSON.parse($.cookie("searchText"));
+                if(searchText!=null){
+                    $("input[name='condition']").val(searchText);
+                    $("#sear button").click();
+                }
+            };
+
+            if (userName!=null){
+                $("#user").text(userName);
+            };
+            var clickNum = 0;
+            var vm = new Vue({
+                el:"#s_mainBody",
+                data: {
+                    goodsData:[{
+                        price:2949,
+                        goodsName:"魅族 16s",
+                    }],
+                    activeNumber: 1,
+                    pageCount: 2,
+                    brandsData:"",
+                    orderByData:"",
+                    priceIntervalData:"",
+                    brandSearchData:"",
+                    RankData:"",
+                    DetailData1:"",
+                    DetailData2:"",
+                    DetailData3:""
+                },
+                methods:{
+                    fuzzySearch:function () {
+                        $.ajax({
+                            url:"http://localhost:8080/fuzzySearch",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val(),
+                            },
+                            success:function (data) {
+                                vm.goodsData=data  //把后台返回的JSON数据赋给goodsData
+                            }
+                        });
+
+                        return 1;
+                    },
+
+                    insertBrand:function () {
+                        $.ajax({
+                            url:"http://localhost:8080/insertBrand",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val()
+                            },
+                            success:function (data) {
+                                vm.brandsData=data;
+                            }
+                        });
+                    },
+                    orderBy:function (flag) {
+                        $.ajax({
+                            url:"http://localhost:8080/orderBy",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val(),
+                                'orderByState':flag,
+                            },
+                            success:function (data) {
+                                vm.orderByData=data;
+                            }
+                        });
+                        return 2;
+                    },
+                    priceInterval:function () {
+                        $.ajax({
+                            url:"http://localhost:8080/priceInterval",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val(),
+                                'lowPrice':$("input[name='lowPrice']").val(),
+                                'highPrice':$("input[name='highPrice']").val(),
+                            },
+                            success:function (data) {
+                                vm.priceIntervalData=data;
+                            }
+                        });
+                        return 3;
+                    },
+                    brandSearch:function (index) {
+                        $.ajax({
+                            url:"http://localhost:8080/brandSearch",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val(),
+                                'brandName': $(".brandSmallBox img")[index].src,
+
+                            },
+                            success:function (data) {
+                                vm.brandSearchData=data;
+                            }
+                        });
+                        return 4;
+                    },
+                    selectRank:function () {
+                        $.ajax({
+                            url:"http://localhost:8080/selectRank",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val()
+                            },
+                            success:function (data) {
+                                vm.RankData=data;
+                            }
+                        });
+                    },
+                    selectDetail:function (index) {
+                        $.ajax({
+                            url:"http://localhost:8080/selectDetail",
+                            type:"post",
+                            dataTpe:"json",
+                            data:{
+                                'name': $("input[name='condition']").val(),
+                                'index':index
+                            },
+                            success:function (data) {
+                                if (index ===1){
+                                    vm.DetailData1=data;
+                                    return 1;
+                                }
+                                if (index === 2){
+                                    vm.DetailData2=data;
+                                    return 2;
+                                }
+                                if (index === 3){
+                                    vm.DetailData3=data;
+                                    return 3;
+                                }
+                            }
+                        });
+                        if (index ===1){
+                            return 1;
+                        }
+                        if (index === 2){
+                            return 2;
+                        }
+                        if (index === 3){
+                            return 3;
+                        }
+                    },
+                    // 上一页
+                    prePage:function () {
+                        if (pageNum>1){
+                            pageNum--;
+                        } else{
+                            pageNum=1;
+                        }
+                    },
+                    // 下一页
+                    nextPage:function () {
+                        if (pageNum<2){
+                            pageNum++;
+                        } else{
+                            pageNum=2;
+                        }
+                    },
+                    changeStatus:function (states) {
+                        if (states === 1){
+                            searchShow=true;
+                            orderByShow=false;
+                            priceIntervalShow=false;
+                            brandSearchShow=false;
+                        }else if (states === 2){
+                            searchShow=false;
+                            orderByShow=true;
+                            priceIntervalShow=false;
+                            brandSearchShow=false;
+                        }else if (states === 3){
+                            searchShow=false;
+                            orderByShow=false;
+                            priceIntervalShow=true;
+                            brandSearchShow=false;
+                        }else if (states === 4) {
+                            searchShow=false;
+                            orderByShow=false;
+                            priceIntervalShow=false;
+                            brandSearchShow=true;
+                        }else {
+                            searchShow=false;
+                            orderByShow=false;
+                            priceIntervalShow=false;
+                            brandSearchShow=false;
+                        }
+                    },
+                    // 排序点击
+                    orderByClick:function (index) {
+                        clickNum++;
+                        if (clickNum % 2 == 0){
+                            clickNum=2;
+                            return index*2;
+                        }else{
+                            clickNum=1;
+                            return index*2-1;
+                        }
+                    }
+                },
+                gotoshangpin:function(index){
+                    var goodsName = this.goodsData[index].goodsName;
+                    $.cookie("gwcSouSuo", JSON.stringify(goodsName),{path:"/"});
+                    window.open("shangpin.html");
+                }
+            });
+            function f(data) {
+                vm.goodsData=data;
+            }
+        });
+
+    </script>
+</head>
+<body>
+<div id="s_mainBody">
+    <div id="partOne">
+        <div id="OLeft">
+            <div class="OLeftBox">
+                <i class="iconfont"></i>
+                <a href="index.html">京东首页</a>
+            </div>
+            <div class="OLeftBox">
+                <p><i class="iconfont"></i>地点</p>
+                <div id="location">
+                    <ul>
+                        <li>北京</li>
+                        <li>天津</li>
+                        <li>河北</li>
+                        <li>上海</li>
+                        <li>重庆</li>
+                        <li>山西</li>
+                        <li>河南</li>
+                        <li>辽宁</li>
+                        <li>黑龙江</li>
+                        <li>安徽</li>
+                        <li>浙江</li>
+                        <li>内蒙古</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="ORight">
+            <div class="tRSelect"><p id="user">你好,请登陆</p></div>
+            <div class="tRSelect"><p>注册</p></div>
+            <div class="tRSelect"><p>我的订单</p></div>
+            <div class="tRSelect">
+                <p>我的京东</p>
+                <div class="tRBox" id="myJD">
+                    <ul>
+                        <li>待处理订单</li>
+                        <li>我的京豆</li>
+                        <li>我的白条</li>
+                        <li>降价商品</li>
+                        <li>我的优惠券</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tRSelect"><p>京东会员</p> </div>
+            <div class="tRSelect">
+                <p>企业采购</p>
+                <div class="tRBox" id="companyBuy">
+                    <ul>
+                        <li>企业购</li>
+                        <li>工业品</li>
+                        <li>礼品卡</li>
+                        <li>商品景馆</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tRSelect"><p>客户服务</p></div>
+            <div class="tRSelect"><p>网站导航</p></div>
+            <div class="tRSelect"><p>手机京东</p></div>
+        </div>
+    </div>
+    <div class="w" id="partTwo">
+        <div id="searLogo">
+            <img src="image/jdlogo-201708-@1x.png">
+        </div>
+        <div id="searBox">
+            <div id="searInput">
+                <input type="text" name="condition">
+            </div>
+            <div id="sear">
+                <button @click="insertBrand();changeStatus(fuzzySearch());selectRank();selectDetail(1);selectDetail(2);selectDetail(3)">搜索</button>
+            </div>
+        </div>
+        <div id="shopCar">
+            <p>购物车<i class="iconfont"></i><i class="ci-count" id="shopping-amount">0</i></p>
+        </div>
+        <div id="hotWord">
+            <ul>
+<!--                <li>vivo</li>-->
+            </ul>
+        </div>
+        <div id="searPilot">
+            <div id="allGoods">全部商品分类</div>
+            <div id="pilot">
+                <ul>
+                    <li>京东时尚</li>
+                    <li>美妆馆</li>
+                    <li>生鲜</li>
+                    <li>海囤全球</li>
+                    <li>闪购</li>
+                    <li>拍卖</li>
+                    <li>金融</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="w"  id="partThree">
+        <div id="brandBox">
+            <div id="brandBigBox">品牌：</div>
+            <div class="brandSmallBox" v-for="(brand,index) in brandsData">
+                <img :src="brand.brandImgUrl" @click="changeStatus(brandSearch(index))">
+            </div>
+        </div>
+        <div class="catalogue" v-for="(rank,index1) in RankData">
+            <div class="catalBigBox" >{{rank.rankName}}</div>
+            <div v-for="(detail,index2) in DetailData1">
+                <div class="catalSmallBox" v-if="index1 == 0">{{detail.rankDetailName}}</div>
+            </div>
+            <div v-for="(detail,index2) in DetailData2">
+                    <div class="catalSmallBox" v-if="index1 == 1">{{detail.rankDetailName}}</div>
+            </div>
+            <div v-for="(detail,index2) in DetailData3">
+                <div class="catalSmallBox" v-if="index1 == 2">{{detail.rankDetailName}}</div>
+            </div>
+        </div>
+        <div id="orderBy">
+            <div class="orderBox" @click="changeStatus(orderBy(0))"><p>综合<i class="arrow"></i></p></div>
+            <div class="orderBox" @click="changeStatus(orderBy(orderByClick(1)))"><p>销量<i class="arrow"></i></p></div>
+            <div class="orderBox" @click="changeStatus(orderBy(orderByClick(2)))"><p>新品<i class="arrow"></i></p></div>
+            <div class="orderBox" @click="changeStatus(orderBy(orderByClick(3)))"><p>价格<i class="arrow"></i></p></div>
+            <div id="priceInterval">
+                <input type="text" name="highPrice">
+                <p>—</p>
+                <input type="text" name="lowPrice">
+                <div id="sureBox">
+                    <input type="button" name="yes" value="确定" @click="changeStatus(priceInterval())">
+                    <input type="reset" name="no" value="取消">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w"  id="partFour">
+        <div id="adBox">
+            <div class="adSmallBox">
+                <img src="image/ad01.jpg">
+                <i>￥1999.00</i>
+                <p>战神盟主 i7升八核E5/16GD3/GTX1050TI独显4G 游戏台式机吃鸡电脑主机DIY组装机</p>
+            </div>
+            <div class="adSmallBox">
+                <img src="image/ad02.jpg">
+                <i>￥1280.00</i>
+                <p>星惠佳四核/i5/i7升八核8G独显游戏办公吃鸡台式电脑主机/DIY组装电脑整机</p>
+            </div>
+            <div class="adSmallBox">
+                <img src="image/ad03.jpg">
+                <i>￥2179.00</i>
+                <p>狄派 新酷睿九代i5-9400F六核/8G独显/吃鸡台式机电脑主机/电竞高配组装电脑游戏整机全套</p>
+            </div>
+        </div>
+        <div id="goodsShowBox">
+
+            <div class="goodsBigBox" v-for="(goods,index) in goodsData" @click="gotoshangpin(index)">
+<!--            <div class="goodsBigBox" v-if="searchShow" v-for="(goods,index) in goodsData" @click="gotoshangpin(index)">-->
+                <img src="image/VIVO1.jpg">
+<!--            <img v-for="(goodsimg,index) in goods.imgSet" :src="goodsimg.imgUrl">-->
+            <p><i>￥</i>{{goods.price}}</p>
+            <div class="goodsDescription">
+                <p >{{goods.goodsName}}</p>
+            </div>
+        </div>
+
+
+        <div class="goodsBigBox" v-if="orderByShow" v-for="(goods,index) in orderByData">
+            <img v-for="(goodsimg,index) in goods.imgSet" :src="goodsimg.imgUrl">
+            <p><i>￥</i>{{goods.price}}</p>
+            <div class="goodsDescription">
+                <p>{{goods.goodsName}}</p>
+            </div>
+        </div>
+
+
+        <div class="goodsBigBox" v-if="priceIntervalShow" v-for="(goods,index) in priceIntervalData">
+            <img v-for="(goodsimg,index) in goods.imgSet" :src="goodsimg.imgUrl">
+            <p><i>￥</i>{{goods.price}}</p>
+            <div class="goodsDescription">
+                <p>{{goods.goodsName}}</p>
+            </div>
+        </div>
+
+
+        <div class="goodsBigBox" v-if="brandSearchShow" v-for="(goods,index) in brandSearchData">
+            <img v-for="(goodsimg,index) in goods.imgSet" :src="goodsimg.imgUrl">
+            <p><i>￥</i>{{goods.price}}</p>
+            <div class="goodsDescription">
+                <p>{{goods.goodsName}}</p>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    <div id="partFive" class="w">
+        <input type="button" name="prePage" value="上一页" @click="prePage();fuzzySearch()">
+        <ul>
+            <li v-for="n in pageCount">
+                <a href="javascripit:void(0)" :class="activeNumber === n + 1 ? 'active' : ''">{{ n }}</a>
+            </li>
+        </ul>
+        <input type="button" name="nextPage" value="下一页" @click="nextPage();fuzzySearch()">
+    </div>
+    <div id="partSix"><img src="image/bottom.png"></div>
+</div>
+</body>
+</html>

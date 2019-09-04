@@ -1,0 +1,135 @@
+
+/*注册主体*/
+#zc-body{
+    height: 805px;
+    width: 1210px;
+    margin: 80px auto 0;
+    border-bottom:  #999999;
+}
+
+
+/*输入手机号*/
+#input-wrp{
+    height: 300px;
+    width: 400px;
+    margin: 50px auto 186px;
+
+}
+.form-list{
+    height: 52px;
+    width: 400px;
+    border: solid 1px #ddd;
+    position: relative;
+}
+.form-list label {
+    float: left;
+    width: 91px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #666;
+    word-spacing: 0.12em;
+    letter-spacing: 0.3em;
+}
+.form-list label a{
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 5px;
+    background: url(../image/icon.png) no-repeat;
+    background-position: -2px -151px;
+}
+
+.form-list input{
+    width: 235px;
+    height: 19px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #666;
+    padding-bottom: 11px;
+    padding-left: 20px;
+    padding-top: 16px;
+}
+
+ .form-list div{
+    width: 110px;
+    height: 46px;
+    border: none;
+    background: #f2f2f2;
+    color: #333;
+    line-height: 46px;
+    text-align: center;
+    font-size: 14px;
+    padding: 0;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    cursor: pointer;
+}
+
+.form-validate{
+    position: relative;
+    height: 27px;
+    color: #c5c5c5;
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+
+
+#form-next{
+    height: 54px;
+    width: 400px;
+    line-height: 52px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 2;
+    background-color: #e2231a;
+    margin-top: 45px;
+}
+#reg-other{
+    height: 28px;
+    width: 400px;
+    margin-top: 28px;
+}
+
+#form-otherperson{
+    color: #333;
+    cursor: pointer;
+    float: left;
+    font-size: 14px;
+}
+.reg-ohter-icon{
+    display: inline-block;
+    margin: 0 8px 2px 0;
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    background-position: 0 -160px;
+}
+#form-otherperson1{
+    color: #333;
+    cursor: pointer;
+    float: right;
+    font-size: 14px;
+}
+
+#form-otherperson :hover{
+    color: #c81623;
+}
+#form-otherperson1 :hover{
+    color: #c81623;
+}
+
+
+
+
+
+
+
+
